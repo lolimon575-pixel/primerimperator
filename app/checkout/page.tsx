@@ -6,7 +6,7 @@ import OrderForm from "@/components/OrderForm";
 import { useCart } from "@/components/CartProvider";
 
 export default function CheckoutPage() {
-  const { items, total } = useCart();
+  const { items, total, hydrated } = useCart();
 
   return (
     <main className="min-h-screen bg-[#f6f6f4] text-[#1f1f1f]">
@@ -19,7 +19,12 @@ export default function CheckoutPage() {
       </header>
 
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-        {items.length === 0 ? (
+        {!hydrated ? (
+          <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
+            <div className="h-[560px] animate-pulse rounded-[24px] bg-white" />
+            <div className="h-[360px] animate-pulse rounded-[24px] bg-white" />
+          </div>
+        ) : items.length === 0 ? (
           <div className="mx-auto max-w-xl rounded-[28px] bg-white p-8 text-center shadow-sm">
             <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-[#fff0ec] text-[#ef4b2f]"><ShoppingBag size={26} /></div>
             <h1 className="mt-5 text-2xl font-bold">Корзина пустая</h1>
@@ -31,7 +36,7 @@ export default function CheckoutPage() {
             <section>
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#ef4b2f]">Последний шаг</p>
               <h1 className="mt-1 text-4xl font-bold tracking-[-0.045em] sm:text-5xl">Оформление заказа</h1>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-[#777]">Укажите контакты и адрес. В этой демо-версии заказ будет сформирован, но не отправлен в ресторан автоматически.</p>
+              <p className="mt-3 max-w-xl text-sm leading-6 text-[#777]">Укажите контакты и способ получения. В этой демо-версии заказ формируется, но не отправляется в ресторан автоматически.</p>
               <div className="mt-6"><OrderForm /></div>
             </section>
 
@@ -40,15 +45,29 @@ export default function CheckoutPage() {
               <div className="mt-4 space-y-3">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center justify-between gap-3 text-sm">
-                    <div className="min-w-0"><div className="truncate font-medium">{item.name}</div><div className="text-xs text-[#999]">{item.quantity} × {item.price} ₽</div></div>
-                    <strong>{(item.quantity * item.price).toLocaleString("ru-RU")} ₽</strong>
+                    <div className="min-w-0">
+                      <div className="truncate font-medium">{item.name}</div>
+                      <div className="text-xs text-[#999]">{item.quantity} × {item.price.toLocaleString("ru-RU")} ₽</div>
+                    </div>
+                    <strong className="whitespace-nowrap">{(item.quantity * item.price).toLocaleString("ru-RU")} ₽</strong>
                   </div>
                 ))}
               </div>
-              <div className="mt-5 flex items-center justify-between border-t border-black/[0.07] pt-4"><span className="text-sm text-[#777]">Итого</span><strong className="text-xl">{total.toLocaleString("ru-RU")} ₽</strong></div>
+
+              <div className="mt-5 flex items-center justify-between border-t border-black/[0.07] pt-4">
+                <span className="text-sm text-[#777]">Итого</span>
+                <strong className="text-xl">{total.toLocaleString("ru-RU")} ₽</strong>
+              </div>
+
               <div className="mt-6 space-y-5 border-t border-black/[0.07] pt-5">
-                <div className="flex gap-3"><Clock3 size={18} className="mt-0.5 shrink-0 text-[#ef4b2f]" /><div><strong className="text-sm">10:30—22:30 ежедневно</strong><p className="mt-1 text-xs leading-5 text-[#888]">После 21:40 заказ может потребовать предоплату.</p></div></div>
-                <div className="flex gap-3"><MapPin size={18} className="mt-0.5 shrink-0 text-[#ef4b2f]" /><div><strong className="text-sm">Доставка по Саратову</strong><p className="mt-1 text-xs leading-5 text-[#888]">Минимальная сумма зависит от расстояния.</p></div></div>
+                <div className="flex gap-3">
+                  <Clock3 size={18} className="mt-0.5 shrink-0 text-[#ef4b2f]" />
+                  <div><strong className="text-sm">10:30—22:30 ежедневно</strong><p className="mt-1 text-xs leading-5 text-[#888]">Поздние заказы дополнительно подтверждаются администратором.</p></div>
+                </div>
+                <div className="flex gap-3">
+                  <MapPin size={18} className="mt-0.5 shrink-0 text-[#ef4b2f]" />
+                  <div><strong className="text-sm">Доставка по Саратову</strong><p className="mt-1 text-xs leading-5 text-[#888]">Минимальная сумма зависит от расстояния.</p></div>
+                </div>
               </div>
             </aside>
           </div>

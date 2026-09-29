@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight, Clock3, MapPin, Phone, Search, ShoppingBag, Sparkles, Truck } from "lucide-react";
+import { ChevronRight, Clock3, MapPin, Phone, Search, Sparkles, Truck } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import CartDrawer from "@/components/CartDrawer";
 import MobileNav from "@/components/MobileNav";
+import HeaderCartButton from "@/components/HeaderCartButton";
 import { useCart } from "@/components/CartProvider";
 import { menu } from "@/data/menu";
 import { useMemo, useState } from "react";
@@ -29,7 +30,7 @@ const locations = [
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("Все");
   const [cartOpen, setCartOpen] = useState(false);
-  const { items, count, add, increase, decrease, remove, quantityOf } = useCart();
+  const { count, total, add, increase, decrease, remove, quantityOf } = useCart();
 
   const products = useMemo(() => menu.flatMap((section) => section.items), []);
   const popular = products.slice(0, 8);
@@ -68,9 +69,7 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <div className="hidden items-center gap-2 text-xs text-[#777] md:flex"><span className="live-dot h-2 w-2 rounded-full bg-[#2eb872]" />10:30—22:30</div>
             <a href="tel:+79272253863" className="hidden h-10 items-center gap-2 rounded-full bg-[#f3f3f1] px-4 text-xs font-medium md:inline-flex"><Phone size={15} />Позвонить</a>
-            <button type="button" onClick={() => setCartOpen(true)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#1f1f1f] px-4 text-xs font-semibold text-white">
-              <ShoppingBag size={16} /><span className="hidden sm:inline">Корзина</span><span className="rounded-full bg-white/15 px-1.5 py-0.5">{count}</span>
-            </button>
+            <HeaderCartButton count={count} total={total} onClick={() => setCartOpen(true)} />
           </div>
         </div>
       </header>

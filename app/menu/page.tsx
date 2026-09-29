@@ -2,10 +2,11 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Search, ShoppingBag } from "lucide-react";
+import { ArrowLeft, Search } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import CartDrawer from "@/components/CartDrawer";
 import MobileNav from "@/components/MobileNav";
+import HeaderCartButton from "@/components/HeaderCartButton";
 import { useCart } from "@/components/CartProvider";
 import { menu } from "@/data/menu";
 
@@ -13,7 +14,7 @@ export default function MenuPage() {
   const [active, setActive] = useState("Все");
   const [query, setQuery] = useState("");
   const [cartOpen, setCartOpen] = useState(false);
-  const { items, count, add, increase, decrease, remove, quantityOf } = useCart();
+  const { count, total, add, increase, decrease, remove, quantityOf } = useCart();
 
   const categories = ["Все", ...menu.map((section) => section.category)];
   const products = useMemo(() => menu.flatMap((section) => section.items).filter((product) => {
@@ -28,7 +29,7 @@ export default function MenuPage() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="inline-flex items-center gap-2 text-xs font-semibold text-[#555]"><ArrowLeft size={16} />Главная</Link>
           <strong className="text-sm">Меню</strong>
-          <button type="button" onClick={() => setCartOpen(true)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#1f1f1f] px-4 text-xs font-semibold text-white"><ShoppingBag size={15} />{count}</button>
+          <HeaderCartButton count={count} total={total} onClick={() => setCartOpen(true)} />
         </div>
       </header>
 

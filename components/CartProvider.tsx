@@ -9,6 +9,7 @@ type CartContextValue = {
   items: CartItem[];
   count: number;
   total: number;
+  hydrated: boolean;
   add: (product: Product) => void;
   increase: (id: string) => void;
   decrease: (id: string) => void;
@@ -20,6 +21,21 @@ type CartContextValue = {
 const CartContext = createContext<CartContextValue | null>(null);
 const STORAGE_KEY = "imperator64-cart-v1";
 
+function isCartItem(value: unknown): value is CartItem {
+  if (!value || typeof value !== "object") return false;
+  const item = value as Partial<CartItem>;
+  return (
+    typeof item.id === "string" &&
+    typeof item.name === "string" &&
+    typeof item.price === "number" &&
+    Number.isFinite(item.price) &&
+    typeof item.quantity === "number" &&
+    Number.isFinite(item.quantity) &&
+    item.quantity > 0 &&
+    typeof item.image === "string"
+  );
+}
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [hydrated, setHydrated] = useState(false);
@@ -28,11 +44,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) setItems(parsed);
+        const parsed: unknown = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setItems(parsed.filter(isCartItem).map((item) => ({ ...item, quantity: Math.max(1, Math.floor(item.quantity)) })));
+        }
       }
-    } catch {}
-    setHydrated(true);
+    } catch {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } finally {
+      setHydrated(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -46,6 +67,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     items,
     count: items.reduce((sum, item) => sum + item.quantity, 0),
     total: items.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    hydrated,
     add: (product) => setItems((current) => {
       const found = current.find((item) => item.id === product.id);
       return found
@@ -59,7 +81,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     remove: (id) => setItems((current) => current.filter((item) => item.id !== id)),
     clear: () => setItems([]),
     quantityOf: (id) => items.find((item) => item.id === id)?.quantity ?? 0,
-  }), [items]);
+  }), [items, hydrated]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
