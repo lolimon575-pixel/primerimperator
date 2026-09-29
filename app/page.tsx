@@ -30,7 +30,7 @@ const locations = [
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("Все");
   const [cartOpen, setCartOpen] = useState(false);
-  const { count, total, add, increase, decrease, remove, quantityOf } = useCart();
+  const { items, count, total, add, increase, decrease, remove, quantityOf } = useCart();
 
   const products = useMemo(() => menu.flatMap((section) => section.items), []);
   const popular = products.slice(0, 8);

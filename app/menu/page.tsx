@@ -14,7 +14,7 @@ export default function MenuPage() {
   const [active, setActive] = useState("Все");
   const [query, setQuery] = useState("");
   const [cartOpen, setCartOpen] = useState(false);
-  const { count, total, add, increase, decrease, remove, quantityOf } = useCart();
+  const { items, count, total, add, increase, decrease, remove, quantityOf } = useCart();
 
   const categories = ["Все", ...menu.map((section) => section.category)];
   const products = useMemo(() => menu.flatMap((section) => section.items).filter((product) => {
