@@ -7,7 +7,13 @@ type Product = {
   badge?: string;
 };
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  onAdd,
+}: {
+  product: Product;
+  onAdd?: () => void;
+}) {
   return (
     <article className="group overflow-hidden rounded-[32px] border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:-translate-y-2 hover:border-red-500/40">
       <div className="relative mb-5 flex h-48 items-center justify-center rounded-[28px] bg-gradient-to-br from-red-950 via-neutral-900 to-black text-7xl">
@@ -26,7 +32,10 @@ export default function ProductCard({ product }: { product: Product }) {
 
       <div className="mt-5 flex items-center justify-between">
         <span className="text-xl font-black">{product.price} ₽</span>
-        <button className="rounded-full bg-red-600 px-5 py-3 text-sm font-bold hover:bg-red-500">
+        <button
+          onClick={onAdd}
+          className="rounded-full bg-red-600 px-5 py-3 text-sm font-bold hover:bg-red-500"
+        >
           + Добавить
         </button>
       </div>
