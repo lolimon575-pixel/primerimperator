@@ -7,51 +7,21 @@ type Product = {
   badge?: string;
 };
 
-export default function ProductCard({
-  product,
-  onAdd,
-}: {
-  product: Product;
-  onAdd?: () => void;
-}) {
+export default function ProductCard({ product, onAdd }: { product: Product; onAdd?: () => void }) {
   return (
-    <article className="group relative overflow-hidden rounded-[36px] border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.03] p-4 shadow-2xl transition duration-300 hover:-translate-y-2 hover:border-red-500/50">
-      <div className="relative flex h-56 items-center justify-center overflow-hidden rounded-[30px] bg-gradient-to-br from-red-950 via-neutral-900 to-black">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(239,68,68,.25),transparent_55%)] opacity-0 transition duration-500 group-hover:opacity-100" />
-        <span className="relative text-8xl transition duration-500 group-hover:scale-110">🍣</span>
-        {product.badge && (
-          <span className="absolute left-4 top-4 rounded-full bg-red-600 px-4 py-1 text-xs font-black uppercase tracking-wider shadow-lg">
-            {product.badge}
-          </span>
-        )}
+    <article className="group rounded-[38px] border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-red-500/40">
+      <div className="relative h-64 overflow-hidden rounded-[32px] bg-gradient-to-br from-red-950 via-neutral-900 to-black flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+        <span className="relative text-8xl transition-transform duration-500 group-hover:scale-110">🍣</span>
+        {product.badge && <span className="absolute left-4 top-4 rounded-full bg-red-600 px-4 py-2 text-xs font-black">{product.badge}</span>}
       </div>
-
-      <div className="px-1 pt-5">
-        {product.category && (
-          <span className="text-xs font-bold uppercase tracking-widest text-red-400">
-            {product.category}
-          </span>
-        )}
-
-        <h3 className="mt-2 text-2xl font-black tracking-tight">{product.name}</h3>
-        <p className="mt-3 min-h-12 text-sm leading-relaxed text-neutral-400">
-          {product.description}
-        </p>
-
-        {product.weight && (
-          <div className="mt-3 inline-flex rounded-full bg-white/5 px-3 py-1 text-xs text-neutral-400">
-            {product.weight}
-          </div>
-        )}
-
-        <div className="mt-6 flex items-center justify-between gap-3">
-          <span className="text-2xl font-black">{product.price} ₽</span>
-          <button
-            onClick={onAdd}
-            className="rounded-full bg-red-600 px-5 py-3 text-sm font-black transition hover:scale-105 hover:bg-red-500 active:scale-95"
-          >
-            Добавить
-          </button>
+      <div className="pt-5">
+        <p className="text-xs uppercase tracking-widest text-red-400">{product.category || 'Суши'}</p>
+        <h3 className="mt-2 text-2xl font-black">{product.name}</h3>
+        <p className="mt-3 text-sm text-neutral-400 leading-relaxed">{product.description}</p>
+        <div className="mt-5 flex items-center justify-between">
+          <div><b className="text-2xl">{product.price} ₽</b>{product.weight && <p className="text-xs text-neutral-500">{product.weight}</p>}</div>
+          <button onClick={onAdd} className="rounded-full bg-red-600 px-6 py-3 font-black transition hover:bg-red-500">+ В корзину</button>
         </div>
       </div>
     </article>
