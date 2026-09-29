@@ -135,7 +135,7 @@ export default function Home() {
           <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#ef4b2f]">Чаще выбирают</p><h2 className="mt-1 text-3xl font-bold tracking-[-0.04em] sm:text-4xl">Популярное</h2></div>
           <Link href="/menu" className="hidden items-center gap-1 text-sm font-medium text-[#666] sm:inline-flex">Всё меню <ChevronRight size={17} /></Link>
         </div>
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <div className="mt-6 grid auto-rows-fr grid-cols-2 items-stretch gap-3 sm:gap-4 lg:grid-cols-4">
           {popular.map((product) => <ProductCard key={product.id} product={product} onAdd={() => add(product)} quantity={quantityOf(product.id)} />)}
         </div>
       </section>
@@ -146,7 +146,7 @@ export default function Home() {
             <div><h2 className="text-2xl font-bold tracking-[-0.03em] sm:text-3xl">{activeCategory === "Все" ? "Всё, что хочется сегодня" : activeCategory}</h2><p className="mt-1 text-sm text-[#888]">Выберите блюдо и добавьте в корзину в один клик.</p></div>
             <Link href="/menu" className="inline-flex h-10 w-fit items-center gap-2 rounded-full bg-[#f3f3f1] px-4 text-xs font-semibold text-[#555]"><Search size={15} />Поиск по меню</Link>
           </div>
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <div className="mt-6 grid auto-rows-fr grid-cols-2 items-stretch gap-3 sm:gap-4 lg:grid-cols-4">
             {filtered.slice(0, 8).map((product) => <ProductCard key={product.id} product={product} onAdd={() => add(product)} quantity={quantityOf(product.id)} />)}
           </div>
         </div>

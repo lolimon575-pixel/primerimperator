@@ -48,7 +48,7 @@ export default function MenuPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-9">
         <div className="mb-5 flex items-center justify-between"><h2 className="text-2xl font-bold tracking-[-0.03em]">{active === "Все" ? "Все позиции" : active}</h2><span className="text-xs text-[#999]">{products.length} позиций</span></div>
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <div className="grid auto-rows-fr grid-cols-2 items-stretch gap-3 sm:gap-4 lg:grid-cols-4">
           {products.map((product) => <ProductCard key={product.id} product={product} onAdd={() => add(product)} quantity={quantityOf(product.id)} />)}
         </div>
         {products.length === 0 && <div className="rounded-[24px] bg-white p-10 text-center text-sm text-[#888]">Ничего не найдено. Попробуйте другой запрос.</div>}

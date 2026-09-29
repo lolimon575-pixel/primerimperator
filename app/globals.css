@@ -40,6 +40,13 @@ img { display: block; max-width: 100%; }
 
 .soft-shadow { box-shadow: 0 8px 30px rgba(22, 22, 22, .07); }
 
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
 @keyframes pulseDot {
   0%,100% { opacity: 1; transform: scale(1); }
   50% { opacity: .45; transform: scale(.85); }
