@@ -3,13 +3,15 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Император64 — суши, роллы и пицца в Саратове",
-  description: "Концепт нового сайта Император64: меню, доставка и удобный заказ суши, роллов и пиццы в Саратове.",
+  description: "Меню, акции и доставка Император64: роллы, сеты, жареные роллы и пицца в Саратове.",
   metadataBase: new URL("https://primerimperator.onrender.com"),
 };
 
 export const viewport: Viewport = {
-  themeColor: "#080807",
-  colorScheme: "dark",
+  themeColor: "#f6f6f4",
+  colorScheme: "light",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
