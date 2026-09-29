@@ -16,6 +16,8 @@
   "devDependencies": {
     "typescript": "5.9.2",
     "tailwindcss": "latest",
-    "@tailwindcss/postcss": "latest"
+    "@tailwindcss/postcss": "latest",
+    "@types/react": "19.1.13",
+    "@types/node": "24.3.0"
   }
 }
