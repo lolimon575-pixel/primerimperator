@@ -13,24 +13,36 @@ export const cartStore = {
 
     if (existing) {
       existing.quantity += 1;
-      return;
+      return this.items;
     }
 
     this.items.push({ ...item, quantity: 1 });
+    return this.items;
   },
 
   increase(name: string) {
     const item = this.items.find((product) => product.name === name);
     if (item) item.quantity += 1;
+    return this.items;
   },
 
   decrease(name: string) {
     const item = this.items.find((product) => product.name === name);
     if (item && item.quantity > 1) item.quantity -= 1;
+    return this.items;
   },
 
   remove(name: string) {
     this.items = this.items.filter((product) => product.name !== name);
+    return this.items;
+  },
+
+  clear() {
+    this.items = [];
+  },
+
+  count() {
+    return this.items.reduce((sum, item) => sum + item.quantity, 0);
   },
 
   total() {
