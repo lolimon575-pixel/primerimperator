@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Search, ShoppingBag } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import CartDrawer from "@/components/CartDrawer";
+import MobileNav from "@/components/MobileNav";
 import { useCart } from "@/components/CartProvider";
 import { menu } from "@/data/menu";
 
@@ -55,6 +56,7 @@ export default function MenuPage() {
       </section>
 
       {cartOpen && <CartDrawer items={items} onClose={() => setCartOpen(false)} onIncrease={increase} onDecrease={decrease} onRemove={remove} />}
+      <MobileNav cartCount={count} cartOpen={cartOpen} onCartClick={() => setCartOpen(true)} />
     </main>
   );
 }

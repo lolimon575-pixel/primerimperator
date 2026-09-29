@@ -123,22 +123,24 @@ export default function Home() {
       <div className="sticky top-16 z-30 mt-4 border-y border-black/[0.05] bg-[#f6f6f4]/95 backdrop-blur-xl">
         <div className="no-scrollbar mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 sm:px-6">
           {["Все", ...menu.map((section) => section.category)].map((category) => (
-            <button type="button" key={category} onClick={() => setActiveCategory(category)} className={"whitespace-nowrap rounded-full px-4 py-2.5 text-xs font-semibold transition " + (activeCategory === category ? "bg-[#1f1f1f] text-white" : "bg-white text-[#666] shadow-sm hover:text-[#1f1f1f]")}>
+            <button type="button" key={category} onClick={() => chooseCategory(category)} className={"whitespace-nowrap rounded-full px-4 py-2.5 text-xs font-semibold transition " + (activeCategory === category ? "bg-[#1f1f1f] text-white" : "bg-white text-[#666] shadow-sm hover:text-[#1f1f1f]")}>
               {category}
             </button>
           ))}
         </div>
       </div>
 
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
-        <div className="flex items-end justify-between">
-          <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#ef4b2f]">Чаще выбирают</p><h2 className="mt-1 text-3xl font-bold tracking-[-0.04em] sm:text-4xl">Популярное</h2></div>
-          <Link href="/menu" className="hidden items-center gap-1 text-sm font-medium text-[#666] sm:inline-flex">Всё меню <ChevronRight size={17} /></Link>
-        </div>
-        <div className="mt-6 grid auto-rows-fr grid-cols-2 items-stretch gap-3 sm:gap-4 lg:grid-cols-4">
-          {popular.map((product) => <ProductCard key={product.id} product={product} onAdd={() => add(product)} quantity={quantityOf(product.id)} />)}
-        </div>
-      </section>
+      {activeCategory === "Все" && (
+        <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
+          <div className="flex items-end justify-between">
+            <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#ef4b2f]">Чаще выбирают</p><h2 className="mt-1 text-3xl font-bold tracking-[-0.04em] sm:text-4xl">Популярное</h2></div>
+            <Link href="/menu" className="hidden items-center gap-1 text-sm font-medium text-[#666] sm:inline-flex">Всё меню <ChevronRight size={17} /></Link>
+          </div>
+          <div className="mt-6 grid auto-rows-fr grid-cols-2 items-stretch gap-3 sm:gap-4 lg:grid-cols-4">
+            {popular.map((product) => <ProductCard key={product.id} product={product} onAdd={() => add(product)} quantity={quantityOf(product.id)} />)}
+          </div>
+        </section>
+      )}
 
       <section id="menu" className="scroll-mt-32 mx-auto max-w-7xl px-4 pb-10 sm:px-6 sm:pb-14">
         <div className="rounded-[28px] bg-white p-4 sm:p-6">
@@ -194,7 +196,7 @@ export default function Home() {
       </footer>
 
       {cartOpen && <CartDrawer items={items} onClose={() => setCartOpen(false)} onIncrease={increase} onDecrease={decrease} onRemove={remove} />}
-      <MobileNav cartCount={count} onCartClick={() => setCartOpen(true)} />
+      <MobileNav cartCount={count} cartOpen={cartOpen} onCartClick={() => setCartOpen(true)} />
     </main>
   );
 }
