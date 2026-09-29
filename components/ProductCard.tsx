@@ -1,7 +1,15 @@
-import { Plus } from "lucide-react";
+import { Check, Plus } from "lucide-react";
 import type { Product } from "@/data/menu";
 
-export default function ProductCard({ product, onAdd }: { product: Product; onAdd?: () => void }) {
+export default function ProductCard({
+  product,
+  onAdd,
+  quantity = 0,
+}: {
+  product: Product;
+  onAdd?: () => void;
+  quantity?: number;
+}) {
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[22px] bg-white soft-shadow transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(20,20,20,.10)]">
       <div className="relative aspect-square overflow-hidden bg-[#efefec]">
@@ -24,9 +32,15 @@ export default function ProductCard({ product, onAdd }: { product: Product; onAd
         <div className="mt-auto flex items-center justify-between gap-2 pt-4">
           <strong className="text-[18px] tracking-[-0.02em] sm:text-[20px]">{product.price.toLocaleString("ru-RU")} ₽</strong>
           {onAdd ? (
-            <button onClick={onAdd} aria-label={"Добавить " + product.name} className="inline-flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-full bg-[#ef4b2f] px-3 text-[12px] font-semibold text-white transition hover:bg-[#d83e26] active:scale-95 sm:px-4">
-              <Plus size={16} strokeWidth={2.5} />
-              <span className="hidden sm:inline">Добавить</span>
+            <button
+              type="button"
+              onClick={onAdd}
+              aria-label={"Добавить " + product.name}
+              className={"inline-flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-full px-3 text-[12px] font-semibold transition active:scale-95 sm:px-4 " + (quantity > 0 ? "bg-[#fff0ec] text-[#ef4b2f]" : "bg-[#ef4b2f] text-white hover:bg-[#d83e26]")}
+            >
+              {quantity > 0 ? <Check size={15} strokeWidth={2.5} /> : <Plus size={16} strokeWidth={2.5} />}
+              <span className="hidden sm:inline">{quantity > 0 ? "В корзине" : "Добавить"}</span>
+              {quantity > 0 && <span className="font-bold">{quantity}</span>}
             </button>
           ) : (
             <span className="rounded-full bg-[#f2f2ef] px-3 py-2 text-xs font-medium text-[#666]">В меню</span>

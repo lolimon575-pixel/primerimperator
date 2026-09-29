@@ -4,33 +4,22 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Search, ShoppingBag } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
-import CartDrawer, { type CartItem } from "@/components/CartDrawer";
-import { menu, type Product } from "@/data/menu";
+import CartDrawer from "@/components/CartDrawer";
+import { useCart } from "@/components/CartProvider";
+import { menu } from "@/data/menu";
 
 export default function MenuPage() {
   const [active, setActive] = useState("Все");
   const [query, setQuery] = useState("");
   const [cartOpen, setCartOpen] = useState(false);
-  const [items, setItems] = useState<CartItem[]>([]);
+  const { items, count, add, increase, decrease, remove, quantityOf } = useCart();
 
   const categories = ["Все", ...menu.map((section) => section.category)];
   const products = useMemo(() => menu.flatMap((section) => section.items).filter((product) => {
     const byCategory = active === "Все" || product.category === active;
     const q = query.trim().toLowerCase();
-    const byQuery = !q || product.name.toLowerCase().includes(q) || product.description.toLowerCase().includes(q);
-    return byCategory && byQuery;
+    return byCategory && (!q || product.name.toLowerCase().includes(q) || product.description.toLowerCase().includes(q));
   }), [active, query]);
-
-  const add = (product: Product) => setItems((current) => {
-    const found = current.find((item) => item.id === product.id);
-    return found
-      ? current.map((item) => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item)
-      : [...current, { ...product, quantity: 1 }];
-  });
-
-  const change = (id: string, delta: number) => setItems((current) =>
-    current.map((item) => item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item)
-  );
 
   return (
     <main className="min-h-screen bg-[#f6f6f4] pb-24 text-[#1f1f1f]">
@@ -38,7 +27,7 @@ export default function MenuPage() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="inline-flex items-center gap-2 text-xs font-semibold text-[#555]"><ArrowLeft size={16} />Главная</Link>
           <strong className="text-sm">Меню</strong>
-          <button onClick={() => setCartOpen(true)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#1f1f1f] px-4 text-xs font-semibold text-white"><ShoppingBag size={15} />{items.reduce((sum, item) => sum + item.quantity, 0)}</button>
+          <button type="button" onClick={() => setCartOpen(true)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#1f1f1f] px-4 text-xs font-semibold text-white"><ShoppingBag size={15} />{count}</button>
         </div>
       </header>
 
@@ -53,19 +42,19 @@ export default function MenuPage() {
 
       <div className="sticky top-16 z-30 mt-4 border-y border-black/[0.05] bg-[#f6f6f4]/95 backdrop-blur-xl">
         <div className="no-scrollbar mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 sm:px-6">
-          {categories.map((category) => <button key={category} onClick={() => setActive(category)} className={"whitespace-nowrap rounded-full px-4 py-2.5 text-xs font-semibold " + (active === category ? "bg-[#1f1f1f] text-white" : "bg-white text-[#666] shadow-sm")}>{category}</button>)}
+          {categories.map((category) => <button type="button" key={category} onClick={() => setActive(category)} className={"whitespace-nowrap rounded-full px-4 py-2.5 text-xs font-semibold " + (active === category ? "bg-[#1f1f1f] text-white" : "bg-white text-[#666] shadow-sm")}>{category}</button>)}
         </div>
       </div>
 
       <section className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-9">
         <div className="mb-5 flex items-center justify-between"><h2 className="text-2xl font-bold tracking-[-0.03em]">{active === "Все" ? "Все позиции" : active}</h2><span className="text-xs text-[#999]">{products.length} позиций</span></div>
         <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-          {products.map((product) => <ProductCard key={product.id} product={product} onAdd={() => add(product)} />)}
+          {products.map((product) => <ProductCard key={product.id} product={product} onAdd={() => add(product)} quantity={quantityOf(product.id)} />)}
         </div>
         {products.length === 0 && <div className="rounded-[24px] bg-white p-10 text-center text-sm text-[#888]">Ничего не найдено. Попробуйте другой запрос.</div>}
       </section>
 
-      {cartOpen && <CartDrawer items={items} onClose={() => setCartOpen(false)} onIncrease={(id) => change(id, 1)} onDecrease={(id) => change(id, -1)} onRemove={(id) => setItems((current) => current.filter((item) => item.id !== id))} />}
+      {cartOpen && <CartDrawer items={items} onClose={() => setCartOpen(false)} onIncrease={increase} onDecrease={decrease} onRemove={remove} />}
     </main>
   );
 }
