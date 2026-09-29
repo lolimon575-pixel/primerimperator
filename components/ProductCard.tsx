@@ -3,48 +3,35 @@ import type { Product } from "@/data/menu";
 
 export default function ProductCard({ product, onAdd }: { product: Product; onAdd?: () => void }) {
   return (
-    <article className="group border-t border-[#2b2723]/18 pt-4">
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#d8cdbd]">
-        <img
-          src={product.image}
-          alt={product.name}
-          loading="lazy"
-          className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.035]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-        <div className="absolute left-3 top-3 flex gap-2">
-          {product.badge && (
-            <span className="rounded-full bg-[#b5352d] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
-              {product.badge}
-            </span>
-          )}
-          <span className="rounded-full bg-[#f5efe4]/92 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#171411]">
-            {product.weight}
+    <article className="group flex h-full flex-col overflow-hidden rounded-[22px] bg-white soft-shadow transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(20,20,20,.10)]">
+      <div className="relative aspect-square overflow-hidden bg-[#efefec]">
+        <img src={product.image} alt={product.name} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.035]" />
+        {product.badge && (
+          <span className="absolute left-2.5 top-2.5 rounded-full bg-[#ef4b2f] px-2.5 py-1 text-[10px] font-bold text-white shadow-sm sm:left-3 sm:top-3">
+            {product.badge}
           </span>
-        </div>
+        )}
       </div>
 
-      <div className="pt-4">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#a8764c]">{product.category}</p>
-            <h3 className="mt-1.5 text-[22px] font-semibold leading-tight tracking-[-0.025em] text-[#171411]">{product.name}</h3>
-          </div>
-          <div className="whitespace-nowrap text-[22px] font-semibold text-[#171411]">{product.price.toLocaleString("ru-RU")} ₽</div>
+      <div className="flex flex-1 flex-col p-3.5 sm:p-4">
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-[15px] font-semibold leading-[1.25] tracking-[-0.015em] text-[#1f1f1f] sm:text-[17px]">{product.name}</h3>
+          <span className="shrink-0 text-[11px] text-[#929292] sm:text-xs">{product.weight}</span>
         </div>
-        <p className="mt-3 min-h-[44px] max-w-[92%] text-sm leading-6 text-[#746d62]">{product.description}</p>
 
-        {onAdd ? (
-          <button
-            onClick={onAdd}
-            className="mt-4 inline-flex h-11 items-center gap-2 border-b border-[#171411] text-sm font-semibold text-[#171411] transition hover:border-[#b5352d] hover:text-[#b5352d] active:translate-y-px"
-          >
-            <Plus size={16} strokeWidth={2.2} />
-            Добавить в заказ
-          </button>
-        ) : (
-          <span className="mt-4 inline-flex h-11 items-center border-b border-[#171411]/25 text-sm text-[#746d62]">Подробнее</span>
-        )}
+        <p className="mt-2 hidden min-h-[40px] text-[13px] leading-5 text-[#777] sm:block">{product.description}</p>
+
+        <div className="mt-auto flex items-center justify-between gap-2 pt-4">
+          <strong className="text-[18px] tracking-[-0.02em] sm:text-[20px]">{product.price.toLocaleString("ru-RU")} ₽</strong>
+          {onAdd ? (
+            <button onClick={onAdd} aria-label={"Добавить " + product.name} className="inline-flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-full bg-[#ef4b2f] px-3 text-[12px] font-semibold text-white transition hover:bg-[#d83e26] active:scale-95 sm:px-4">
+              <Plus size={16} strokeWidth={2.5} />
+              <span className="hidden sm:inline">Добавить</span>
+            </button>
+          ) : (
+            <span className="rounded-full bg-[#f2f2ef] px-3 py-2 text-xs font-medium text-[#666]">В меню</span>
+          )}
+        </div>
       </div>
     </article>
   );

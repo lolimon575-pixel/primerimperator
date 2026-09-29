@@ -4,38 +4,29 @@ import OrderForm from "@/components/OrderForm";
 
 export default function CheckoutPage() {
   return (
-    <main className="min-h-screen bg-[#efe8d9] text-[#171411]">
-      <header className="border-b border-black/10">
-        <div className="mx-auto flex h-[70px] max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em]"><ArrowLeft size={16} />Назад</Link>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.26em]">Император64</div>
-          <a href="tel:+79272253863" className="inline-flex items-center gap-2 text-xs"><Phone size={15} /><span className="hidden sm:inline">Позвонить</span></a>
+    <main className="min-h-screen bg-[#f6f6f4] text-[#1f1f1f]">
+      <header className="border-b border-black/[0.06] bg-white">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+          <Link href="/" className="inline-flex items-center gap-2 text-xs font-semibold text-[#666]"><ArrowLeft size={16} />Назад</Link>
+          <strong className="text-sm">Оформление</strong>
+          <a href="tel:+79272253863" className="inline-flex items-center gap-2 text-xs font-medium text-[#666]"><Phone size={15} /><span className="hidden sm:inline">Позвонить</span></a>
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+        <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
           <section>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#b5352d]">оформление</div>
-            <h1 className="serif mt-3 text-5xl italic sm:text-7xl">Почти готово.</h1>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-[#746d62]">Оставьте контактные данные. Администратор свяжется с вами для подтверждения заказа и финальных условий доставки.</p>
-            <div className="mt-8"><OrderForm /></div>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#ef4b2f]">Последний шаг</p>
+            <h1 className="mt-1 text-4xl font-bold tracking-[-0.045em] sm:text-5xl">Оформление заказа</h1>
+            <p className="mt-3 max-w-xl text-sm leading-6 text-[#777]">Укажите контакты и адрес. Администратор подтвердит заказ по телефону.</p>
+            <div className="mt-6"><OrderForm /></div>
           </section>
 
-          <aside className="border-t border-black/20 lg:mt-24">
-            <div className="border-b border-black/15 py-6">
-              <Clock3 size={18} className="text-[#b5352d]" />
-              <h2 className="mt-4 font-semibold">Ежедневно 10:30—22:30</h2>
-              <p className="mt-2 text-sm leading-6 text-[#746d62]">Поздние заказы могут потребовать дополнительного подтверждения.</p>
-            </div>
-            <div className="border-b border-black/15 py-6">
-              <MapPin size={18} className="text-[#b5352d]" />
-              <h2 className="mt-4 font-semibold">Доставка по Саратову</h2>
-              <p className="mt-2 text-sm leading-6 text-[#746d62]">Минимальная сумма зависит от расстояния до ближайшей точки.</p>
-            </div>
-            <div className="py-6">
-              <div className="text-xs uppercase tracking-[0.18em] text-[#8f877b]">Основной телефон</div>
-              <a href="tel:+79272253863" className="serif mt-2 inline-block text-3xl italic hover:text-[#b5352d]">+7 927 225-38-63</a>
+          <aside className="h-fit rounded-[24px] bg-white p-5 shadow-sm lg:sticky lg:top-6">
+            <h2 className="text-lg font-semibold">Полезно знать</h2>
+            <div className="mt-5 space-y-5">
+              <div className="flex gap-3"><Clock3 size={18} className="mt-0.5 shrink-0 text-[#ef4b2f]" /><div><strong className="text-sm">10:30—22:30 ежедневно</strong><p className="mt-1 text-xs leading-5 text-[#888]">После 21:40 заказ может потребовать предоплату.</p></div></div>
+              <div className="flex gap-3"><MapPin size={18} className="mt-0.5 shrink-0 text-[#ef4b2f]" /><div><strong className="text-sm">Доставка по Саратову</strong><p className="mt-1 text-xs leading-5 text-[#888]">Минимальная сумма зависит от расстояния.</p></div></div>
             </div>
           </aside>
         </div>
