@@ -16,40 +16,62 @@ export default function MenuPage() {
   const categories = ["Все", ...menu.map((section) => section.category)];
   const products = useMemo(() => menu.flatMap((section) => section.items).filter((product) => {
     const categoryMatch = active === "Все" || product.category === active;
-    const queryMatch = product.name.toLowerCase().includes(query.toLowerCase()) || product.description.toLowerCase().includes(query.toLowerCase());
-    return categoryMatch && queryMatch;
+    const q = query.trim().toLowerCase();
+    return categoryMatch && (!q || product.name.toLowerCase().includes(q) || product.description.toLowerCase().includes(q));
   }), [active, query]);
 
   const add = (product: Product) => setItems((current) => {
     const found = current.find((item) => item.id === product.id);
     return found ? current.map((item) => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item) : [...current, { ...product, quantity: 1 }];
   });
-  const change = (id: string, delta: number) => setItems((current) => current.map((item) => item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item));
+
+  const change = (id: string, delta: number) => setItems((current) =>
+    current.map((item) => item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item)
+  );
 
   return (
-    <main className="min-h-screen bg-[#080807] pb-28 text-white">
-      <header className="sticky top-0 z-40 border-b border-white/[0.08] bg-[#080807]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/" className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white"><ArrowLeft size={17} />Главная</Link>
-          <button onClick={() => setCartOpen(true)} className="inline-flex h-11 items-center gap-2 rounded-full bg-[#e7b45b] px-4 text-sm font-semibold text-[#111]"><ShoppingBag size={17} />{items.reduce((sum, item) => sum + item.quantity, 0)}</button>
+    <main className="min-h-screen bg-[#efe8d9] pb-20 text-[#171411]">
+      <header className="sticky top-0 z-40 border-b border-black/10 bg-[#efe8d9]/94 backdrop-blur-xl">
+        <div className="mx-auto flex h-[70px] max-w-[1480px] items-center justify-between px-4 sm:px-7 lg:px-10">
+          <Link href="/" className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em]"><ArrowLeft size={16} />Главная</Link>
+          <div className="text-[11px] font-semibold uppercase tracking-[0.26em]">Император64 · меню</div>
+          <button onClick={() => setCartOpen(true)} className="inline-flex h-10 items-center gap-2 bg-[#171411] px-4 text-xs font-semibold text-white"><ShoppingBag size={15} />{items.reduce((sum, item) => sum + item.quantity, 0)}</button>
         </div>
       </header>
 
-      <section className="mx-auto max-w-7xl px-4 pb-8 pt-12 sm:px-6 sm:pt-16">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#e7b45b]">Каталог</p>
-        <div className="mt-3 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div><h1 className="text-5xl font-semibold tracking-[-0.045em] sm:text-7xl">Меню</h1><p className="mt-4 max-w-xl text-white/45">Актуальные позиции из меню «Император». Поиск работает по названию и составу.</p></div>
-          <label className="flex h-13 w-full items-center gap-3 rounded-full border border-white/10 bg-white/[0.035] px-5 lg:w-80"><Search size={17} className="text-white/35" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Найти блюдо" className="w-full bg-transparent text-sm outline-none placeholder:text-white/25" /></label>
-        </div>
-        <div className="no-scrollbar mt-8 flex gap-2 overflow-x-auto pb-2">
-          {categories.map((category) => <button key={category} onClick={() => setActive(category)} className={"whitespace-nowrap rounded-full px-5 py-2.5 text-sm transition " + (active === category ? "bg-white text-black" : "border border-white/10 bg-white/[0.03] text-white/55 hover:text-white")}>{category}</button>)}
+      <section className="mx-auto max-w-[1480px] px-4 pb-12 pt-14 sm:px-7 sm:pt-20 lg:px-10">
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#b5352d]">полный каталог</div>
+            <h1 className="serif mt-3 text-6xl italic tracking-[-0.05em] sm:text-8xl">Меню.</h1>
+          </div>
+          <div className="lg:pb-2">
+            <label className="flex h-14 items-center gap-3 border-b border-black/25">
+              <Search size={18} className="text-black/35" />
+              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Название или ингредиент" className="w-full bg-transparent text-base outline-none placeholder:text-black/30" />
+            </label>
+            <div className="no-scrollbar mt-5 flex gap-2 overflow-x-auto">
+              {categories.map((category) => (
+                <button key={category} onClick={() => setActive(category)} className={"whitespace-nowrap border px-4 py-2 text-xs font-medium " + (active === category ? "border-[#171411] bg-[#171411] text-white" : "border-black/15 text-[#746d62]")}>{category}</button>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="mb-6 flex items-end justify-between"><h2 className="text-2xl font-semibold">{active === "Все" ? "Все позиции" : active}</h2><span className="text-sm text-white/30">{products.length} позиций</span></div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{products.map((product) => <ProductCard key={product.id} product={product} onAdd={() => add(product)} />)}</div>
-        {products.length === 0 && <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-10 text-center text-white/45">Ничего не найдено. Попробуйте другой запрос.</div>}
+      <section className="mx-auto max-w-[1480px] px-4 sm:px-7 lg:px-10">
+        <div className="flex items-center justify-between border-b border-black/15 pb-4">
+          <h2 className="text-xl font-semibold">{active === "Все" ? "Все позиции" : active}</h2>
+          <span className="text-xs text-[#8f877b]">{products.length} позиций</span>
+        </div>
+
+        <div className="mt-8 grid gap-x-5 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {products.map((product) => <ProductCard key={product.id} product={product} onAdd={() => add(product)} />)}
+        </div>
+
+        {products.length === 0 && (
+          <div className="my-16 border-y border-black/15 py-12 text-center text-[#746d62]">Ничего не найдено. Попробуйте другой запрос.</div>
+        )}
       </section>
 
       {cartOpen && <CartDrawer items={items} onClose={() => setCartOpen(false)} onIncrease={(id) => change(id, 1)} onDecrease={(id) => change(id, -1)} onRemove={(id) => setItems((current) => current.filter((item) => item.id !== id))} />}
