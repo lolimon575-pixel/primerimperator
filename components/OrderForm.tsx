@@ -19,8 +19,22 @@ export default function OrderForm() {
 
   const copyText = async (text: string) => {
     try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        setCopied(true);
+        return;
+      }
+
+      const area = document.createElement("textarea");
+      area.value = text;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      const success = document.execCommand("copy");
+      document.body.removeChild(area);
+      setCopied(success);
     } catch {
       setCopied(false);
     }
@@ -65,10 +79,20 @@ export default function OrderForm() {
         <p className="mt-2 text-sm leading-6 text-[#777]">
           Это демо-сайт, поэтому заказ не отправляется в ресторан автоматически. {copied ? "Данные заказа скопированы — их можно передать администратору." : "Можно скопировать заказ вручную и передать администратору."}
         </p>
-        <div className="mt-5 flex flex-wrap gap-2">
+        <textarea
+          readOnly
+          value={orderText}
+          aria-label="Сформированный заказ"
+          className="mt-5 h-44 w-full resize-none rounded-2xl border border-black/[0.07] bg-[#f8f8f6] p-4 text-xs leading-5 text-[#555] outline-none"
+          onFocus={(event) => event.currentTarget.select()}
+        />
+        <div className="mt-4 flex flex-wrap gap-2">
           <a href="tel:+79272253863" className="inline-flex h-12 items-center gap-2 rounded-full bg-[#ef4b2f] px-5 text-sm font-semibold text-white"><Phone size={16} />Позвонить</a>
           <button type="button" onClick={() => copyText(orderText)} className="inline-flex h-12 items-center gap-2 rounded-full bg-[#f3f3f1] px-5 text-sm font-medium text-[#666]">
             <Copy size={15} />{copied ? "Заказ скопирован" : "Скопировать заказ"}
+          </button>
+          <button type="button" onClick={() => { setReady(false); setCopied(false); }} className="inline-flex h-12 items-center rounded-full px-4 text-sm font-medium text-[#777] hover:bg-[#f3f3f1]">
+            Изменить данные
           </button>
         </div>
       </div>
@@ -165,7 +189,7 @@ export default function OrderForm() {
       {timeMode === "scheduled" && (
         <label className="mt-5 block text-xs font-medium text-[#777]">
           Желаемое время
-          <input name="scheduledTime" type="time" required className={field + " mt-2"} />
+          <input name="scheduledTime" type="time" min="10:30" max="22:30" required className={field + " mt-2"} />
         </label>
       )}
 
