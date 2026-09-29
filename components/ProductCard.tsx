@@ -11,7 +11,7 @@ export default function ProductCard({
   quantity?: number;
 }) {
   return (
-    <article className="group flex h-full min-h-0 flex-col overflow-hidden rounded-[22px] bg-white soft-shadow transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(20,20,20,.10)]">
+    <article className="group flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-[22px] bg-white soft-shadow transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(20,20,20,.10)]">
       <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-[#efefec]">
         <img
           src={product.image}
@@ -39,7 +39,7 @@ export default function ProductCard({
         </p>
 
         <div className="mt-auto flex min-h-10 items-center justify-between gap-2 pt-4">
-          <strong className="whitespace-nowrap text-[18px] tracking-[-0.02em] sm:text-[20px]">
+          <strong className="whitespace-nowrap text-[16px] tracking-[-0.02em] sm:text-[20px]">
             {product.price.toLocaleString("ru-RU")} ₽
           </strong>
 
@@ -48,7 +48,7 @@ export default function ProductCard({
               type="button"
               onClick={onAdd}
               aria-label={"Добавить " + product.name}
-              className={"inline-flex h-10 min-w-10 shrink-0 items-center justify-center gap-1.5 rounded-full px-3 text-[12px] font-semibold transition active:scale-95 sm:min-w-[108px] sm:px-4 " + (quantity > 0 ? "bg-[#fff0ec] text-[#ef4b2f]" : "bg-[#ef4b2f] text-white hover:bg-[#d83e26]")}
+              className={"inline-flex h-9 min-w-9 shrink-0 items-center justify-center gap-1.5 rounded-full px-2.5 text-[12px] font-semibold transition active:scale-95 sm:h-10 sm:min-w-[108px] sm:px-4 " + (quantity > 0 ? "bg-[#fff0ec] text-[#ef4b2f]" : "bg-[#ef4b2f] text-white hover:bg-[#d83e26]")}
             >
               {quantity > 0 ? <Check size={15} strokeWidth={2.5} /> : <Plus size={16} strokeWidth={2.5} />}
               <span className="hidden sm:inline">{quantity > 0 ? "В корзине" : "Добавить"}</span>

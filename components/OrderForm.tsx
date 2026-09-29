@@ -18,26 +18,32 @@ export default function OrderForm() {
   const field = "w-full rounded-2xl border border-black/[0.08] bg-[#f8f8f6] px-4 py-3.5 text-sm text-[#222] outline-none transition placeholder:text-[#aaa] focus:border-[#ef4b2f] focus:bg-white";
 
   const copyText = async (text: string) => {
-    try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(text);
-        setCopied(true);
-        return;
-      }
+    let success = false;
 
-      const area = document.createElement("textarea");
-      area.value = text;
-      area.setAttribute("readonly", "");
-      area.style.position = "fixed";
-      area.style.opacity = "0";
-      document.body.appendChild(area);
-      area.select();
-      const success = document.execCommand("copy");
-      document.body.removeChild(area);
-      setCopied(success);
-    } catch {
-      setCopied(false);
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        success = true;
+      } catch {}
     }
+
+    if (!success) {
+      try {
+        const area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.appendChild(area);
+        area.select();
+        success = document.execCommand("copy");
+        document.body.removeChild(area);
+      } catch {
+        success = false;
+      }
+    }
+
+    setCopied(success);
   };
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -73,7 +79,7 @@ export default function OrderForm() {
 
   if (ready) {
     return (
-      <div className="rounded-[24px] bg-white p-6 shadow-sm sm:p-7">
+      <div aria-live="polite" className="rounded-[24px] bg-white p-6 shadow-sm sm:p-7">
         <div className="grid h-14 w-14 place-items-center rounded-full bg-[#eaf8ef] text-[#269b57]"><CheckCircle2 size={25} /></div>
         <h2 className="mt-5 text-2xl font-bold tracking-[-0.03em]">Заказ сформирован</h2>
         <p className="mt-2 text-sm leading-6 text-[#777]">
@@ -92,7 +98,7 @@ export default function OrderForm() {
             <Copy size={15} />{copied ? "Заказ скопирован" : "Скопировать заказ"}
           </button>
           <button type="button" onClick={() => { setReady(false); setCopied(false); }} className="inline-flex h-12 items-center rounded-full px-4 text-sm font-medium text-[#777] hover:bg-[#f3f3f1]">
-            Изменить данные
+            Заполнить заново
           </button>
         </div>
       </div>
@@ -110,11 +116,11 @@ export default function OrderForm() {
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <label className="text-xs font-medium text-[#777]">
           Имя
-          <input name="name" autoComplete="name" required className={field + " mt-2"} placeholder="Как к вам обращаться" />
+          <input name="name" autoComplete="name" maxLength={80} required className={field + " mt-2"} placeholder="Как к вам обращаться" />
         </label>
         <label className="text-xs font-medium text-[#777]">
           Телефон
-          <input name="phone" autoComplete="tel" required minLength={7} inputMode="tel" className={field + " mt-2"} placeholder="+7 (___) ___-__-__" />
+          <input name="phone" type="tel" autoComplete="tel" required minLength={7} maxLength={32} inputMode="tel" className={field + " mt-2"} placeholder="+7 (___) ___-__-__" />
         </label>
       </div>
 
@@ -149,7 +155,7 @@ export default function OrderForm() {
       {fulfillment === "delivery" ? (
         <label className="mt-5 block text-xs font-medium text-[#777]">
           Адрес
-          <input name="address" autoComplete="street-address" required className={field + " mt-2"} placeholder="Улица, дом, квартира" />
+          <input name="address" autoComplete="street-address" maxLength={200} required className={field + " mt-2"} placeholder="Улица, дом, квартира" />
         </label>
       ) : (
         <label className="mt-5 block text-xs font-medium text-[#777]">
@@ -195,7 +201,7 @@ export default function OrderForm() {
 
       <label className="mt-5 block text-xs font-medium text-[#777]">
         Комментарий
-        <textarea name="comment" rows={4} className={field + " mt-2 resize-none"} placeholder="Домофон, подъезд, пожелания к заказу" />
+        <textarea name="comment" rows={4} maxLength={500} className={field + " mt-2 resize-none"} placeholder="Домофон, подъезд, пожелания к заказу" />
       </label>
 
       <button type="submit" className="mt-6 h-13 w-full rounded-full bg-[#ef4b2f] text-sm font-semibold text-white transition hover:bg-[#d83e26] active:scale-[.99]">

@@ -35,6 +35,7 @@ export default function Home() {
   const products = useMemo(() => menu.flatMap((section) => section.items), []);
   const popular = products.slice(0, 8);
   const filtered = activeCategory === "Все" ? products : products.filter((p) => p.category === activeCategory);
+  const catalogPreview = activeCategory === "Все" ? products.slice(8, 16) : filtered.slice(0, 8);
   const premium = products.find((p) => p.id === "set-premium");
 
   const chooseCategory = (category: string) => {
@@ -144,11 +145,11 @@ export default function Home() {
       <section id="menu" className="scroll-mt-32 mx-auto max-w-7xl px-4 pb-10 sm:px-6 sm:pb-14">
         <div className="rounded-[28px] bg-white p-4 sm:p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div><h2 className="text-2xl font-bold tracking-[-0.03em] sm:text-3xl">{activeCategory === "Все" ? "Всё, что хочется сегодня" : activeCategory}</h2><p className="mt-1 text-sm text-[#888]">Выберите блюдо и добавьте в корзину в один клик.</p></div>
+            <div><h2 className="text-2xl font-bold tracking-[-0.03em] sm:text-3xl">{activeCategory === "Все" ? "Ещё из меню" : activeCategory}</h2><p className="mt-1 text-sm text-[#888]">{activeCategory === "Все" ? "Другие позиции без повторов из блока «Популярное»." : "Выберите блюдо и добавьте в корзину в один клик."}</p></div>
             <Link href="/menu" className="inline-flex h-10 w-fit items-center gap-2 rounded-full bg-[#f3f3f1] px-4 text-xs font-semibold text-[#555]"><Search size={15} />Поиск по меню</Link>
           </div>
           <div className="mt-6 grid auto-rows-fr grid-cols-2 items-stretch gap-3 sm:gap-4 lg:grid-cols-4">
-            {filtered.slice(0, 8).map((product) => <ProductCard key={product.id} product={product} onAdd={() => add(product)} quantity={quantityOf(product.id)} />)}
+            {catalogPreview.map((product) => <ProductCard key={product.id} product={product} onAdd={() => add(product)} quantity={quantityOf(product.id)} />)}
           </div>
         </div>
       </section>
