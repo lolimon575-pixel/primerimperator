@@ -1,13 +1,15 @@
-import { Check, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import type { Product } from "@/data/menu";
 
 export default function ProductCard({
   product,
   onAdd,
+  onDecrease,
   quantity = 0,
 }: {
   product: Product;
   onAdd?: () => void;
+  onDecrease?: () => void;
   quantity?: number;
 }) {
   return (
@@ -17,10 +19,11 @@ export default function ProductCard({
           src={product.image}
           alt={product.name}
           loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.035]"
         />
         {product.badge && (
-          <span className="absolute left-2.5 top-2.5 rounded-full bg-[#ef4b2f] px-2.5 py-1 text-[10px] font-bold text-white shadow-sm sm:left-3 sm:top-3">
+          <span className="absolute left-2.5 top-2.5 max-w-[calc(100%-20px)] truncate rounded-full bg-[#ef4b2f] px-2.5 py-1 text-[10px] font-bold text-white shadow-sm sm:left-3 sm:top-3">
             {product.badge}
           </span>
         )}
@@ -31,7 +34,7 @@ export default function ProductCard({
           <h3 className="clamp-2 text-[15px] font-semibold leading-[1.28] tracking-[-0.015em] text-[#1f1f1f] sm:text-[17px]">
             {product.name}
           </h3>
-          <div className="mt-1.5 h-4 text-[11px] leading-4 text-[#929292] sm:text-xs">{product.weight}</div>
+          <div className="mt-1.5 h-4 truncate text-[11px] leading-4 text-[#929292] sm:text-xs">{product.weight}</div>
         </div>
 
         <p className="clamp-2 mt-2 hidden h-10 text-[13px] leading-5 text-[#777] sm:block">
@@ -43,16 +46,35 @@ export default function ProductCard({
             {product.price.toLocaleString("ru-RU")} ₽
           </strong>
 
-          {onAdd ? (
+          {onAdd && quantity > 0 && onDecrease ? (
+            <div className="flex h-9 shrink-0 items-center rounded-full bg-[#fff0ec] p-1 text-[#ef4b2f] sm:h-10">
+              <button
+                type="button"
+                onClick={onDecrease}
+                aria-label={"Уменьшить количество " + product.name}
+                className="grid h-7 w-7 place-items-center rounded-full transition hover:bg-white active:scale-90 sm:h-8 sm:w-8"
+              >
+                <Minus size={13} strokeWidth={2.5} />
+              </button>
+              <span className="w-6 text-center text-xs font-bold" aria-live="polite">{quantity}</span>
+              <button
+                type="button"
+                onClick={onAdd}
+                aria-label={"Добавить ещё " + product.name}
+                className="grid h-7 w-7 place-items-center rounded-full transition hover:bg-white active:scale-90 sm:h-8 sm:w-8"
+              >
+                <Plus size={13} strokeWidth={2.5} />
+              </button>
+            </div>
+          ) : onAdd ? (
             <button
               type="button"
               onClick={onAdd}
               aria-label={"Добавить " + product.name}
-              className={"inline-flex h-9 min-w-9 shrink-0 items-center justify-center gap-1.5 rounded-full px-2.5 text-[12px] font-semibold transition active:scale-95 sm:h-10 sm:min-w-[108px] sm:px-4 " + (quantity > 0 ? "bg-[#fff0ec] text-[#ef4b2f]" : "bg-[#ef4b2f] text-white hover:bg-[#d83e26]")}
+              className="inline-flex h-9 min-w-9 shrink-0 items-center justify-center gap-1.5 rounded-full bg-[#ef4b2f] px-2.5 text-[12px] font-semibold text-white transition hover:bg-[#d83e26] active:scale-95 sm:h-10 sm:min-w-[108px] sm:px-4"
             >
-              {quantity > 0 ? <Check size={15} strokeWidth={2.5} /> : <Plus size={16} strokeWidth={2.5} />}
-              <span className="hidden sm:inline">{quantity > 0 ? "В корзине" : "Добавить"}</span>
-              {quantity > 0 && <span className="font-bold">{quantity}</span>}
+              <Plus size={16} strokeWidth={2.5} />
+              <span className="hidden sm:inline">Добавить</span>
             </button>
           ) : (
             <span className="inline-flex h-10 items-center rounded-full bg-[#f2f2ef] px-3 text-xs font-medium text-[#666]">В меню</span>

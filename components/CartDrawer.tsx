@@ -11,10 +11,12 @@ type Props = {
   onIncrease: (id: string) => void;
   onDecrease: (id: string) => void;
   onRemove: (id: string) => void;
+  onClear: () => void;
 };
 
-export default function CartDrawer({ items, onClose, onIncrease, onDecrease, onRemove }: Props) {
+export default function CartDrawer({ items, onClose, onIncrease, onDecrease, onRemove, onClear }: Props) {
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const count = items.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -42,12 +44,19 @@ export default function CartDrawer({ items, onClose, onIncrease, onDecrease, onR
       >
         <div className="flex items-center justify-between border-b border-black/[0.07] bg-white p-5 sm:rounded-tl-[26px] sm:p-6">
           <div>
-            <p className="text-xs font-medium text-[#8a8a8a]">Император64</p>
+            <p className="text-xs font-medium text-[#8a8a8a]">Император64 · {count} шт.</p>
             <h2 className="mt-1 text-2xl font-semibold tracking-[-0.03em]">Корзина</h2>
           </div>
-          <button type="button" onClick={onClose} aria-label="Закрыть корзину" className="grid h-10 w-10 place-items-center rounded-full bg-[#f3f3f1] text-[#555] transition hover:bg-[#ececea] active:scale-95">
-            <X size={19} />
-          </button>
+          <div className="flex items-center gap-2">
+            {items.length > 0 && (
+              <button type="button" onClick={onClear} className="hidden rounded-full px-3 py-2 text-xs font-medium text-[#999] transition hover:bg-[#fff0ec] hover:text-[#ef4b2f] sm:block">
+                Очистить
+              </button>
+            )}
+            <button type="button" onClick={onClose} aria-label="Закрыть корзину" className="grid h-10 w-10 place-items-center rounded-full bg-[#f3f3f1] text-[#555] transition hover:bg-[#ececea] active:scale-95">
+              <X size={19} />
+            </button>
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-5">
@@ -67,7 +76,7 @@ export default function CartDrawer({ items, onClose, onIncrease, onDecrease, onR
                     <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
                         <h4 className="truncate text-sm font-semibold">{item.name}</h4>
-                        <p className="mt-1 text-xs text-[#999]">{item.weight}</p>
+                        <p className="mt-1 text-xs text-[#999]">{item.weight} · {item.price.toLocaleString("ru-RU")} ₽</p>
                       </div>
                       <button type="button" onClick={() => onRemove(item.id)} aria-label={"Удалить " + item.name} className="shrink-0 rounded-full p-1 text-[#aaa] transition hover:bg-[#fff0ec] hover:text-[#ef4b2f]"><Trash2 size={16} /></button>
                     </div>
@@ -82,6 +91,9 @@ export default function CartDrawer({ items, onClose, onIncrease, onDecrease, onR
                   </div>
                 </div>
               ))}
+              <button type="button" onClick={onClear} className="w-full rounded-[16px] py-3 text-xs font-medium text-[#999] transition hover:bg-white hover:text-[#ef4b2f] sm:hidden">
+                Очистить корзину
+              </button>
             </div>
           )}
         </div>
@@ -91,7 +103,8 @@ export default function CartDrawer({ items, onClose, onIncrease, onDecrease, onR
             <span className="text-sm text-[#777]">Итого</span>
             <strong className="text-2xl tracking-[-0.03em]">{total.toLocaleString("ru-RU")} ₽</strong>
           </div>
-          <p className="mt-2 text-xs leading-5 text-[#999]">Минимальная сумма доставки зависит от расстояния.</p>
+          <p className="mt-2 text-xs leading-5 text-[#999]">Доставка обычно занимает от 60 минут. Минимальная сумма зависит от расстояния.</p>
+          {total > 2000 && <p className="mt-1 text-xs leading-5 text-[#ef4b2f]">Для заказов свыше 2 000 ₽ предусмотрена предоплата.</p>}
           <Link onClick={onClose} href="/checkout" className={"mt-4 flex h-13 items-center justify-center rounded-full text-sm font-semibold transition " + (items.length ? "bg-[#ef4b2f] text-white hover:bg-[#d83e26] active:scale-[.99]" : "pointer-events-none bg-[#eee] text-[#aaa]")}>
             Оформить заказ
           </Link>

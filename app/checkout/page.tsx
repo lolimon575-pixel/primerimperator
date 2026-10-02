@@ -10,9 +10,9 @@ export default function CheckoutPage() {
 
   return (
     <main className="min-h-screen bg-[#f6f6f4] text-[#1f1f1f]">
-      <header className="border-b border-black/[0.06] bg-white">
+      <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="inline-flex items-center gap-2 text-xs font-semibold text-[#666]"><ArrowLeft size={16} />Назад</Link>
+          <Link href="/menu" className="inline-flex items-center gap-2 text-xs font-semibold text-[#666]"><ArrowLeft size={16} />К меню</Link>
           <strong className="text-sm">Оформление</strong>
           <a href="tel:+79272253863" className="inline-flex items-center gap-2 text-xs font-medium text-[#666]"><Phone size={15} /><span className="hidden sm:inline">Позвонить</span></a>
         </div>
@@ -40,8 +40,12 @@ export default function CheckoutPage() {
               <div className="mt-6"><OrderForm /></div>
             </section>
 
-            <aside className="h-fit rounded-[24px] bg-white p-5 shadow-sm lg:sticky lg:top-6">
-              <h2 className="text-lg font-semibold">Ваш заказ</h2>
+            <aside className="h-fit rounded-[24px] bg-white p-5 shadow-sm lg:sticky lg:top-24">
+              <div className="flex items-center justify-between gap-3">
+                <h2 className="text-lg font-semibold">Ваш заказ</h2>
+                <Link href="/menu" className="text-xs font-medium text-[#ef4b2f]">Изменить</Link>
+              </div>
+
               <div className="mt-4 space-y-3">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center justify-between gap-3 text-sm">
@@ -62,11 +66,14 @@ export default function CheckoutPage() {
               <div className="mt-6 space-y-5 border-t border-black/[0.07] pt-5">
                 <div className="flex gap-3">
                   <Clock3 size={18} className="mt-0.5 shrink-0 text-[#ef4b2f]" />
-                  <div><strong className="text-sm">10:30—22:30 ежедневно</strong><p className="mt-1 text-xs leading-5 text-[#888]">Поздние заказы дополнительно подтверждаются администратором.</p></div>
+                  <div><strong className="text-sm">10:30—22:30 ежедневно</strong><p className="mt-1 text-xs leading-5 text-[#888]">Доставка вместе с приготовлением обычно занимает от 60 минут.</p></div>
                 </div>
                 <div className="flex gap-3">
                   <MapPin size={18} className="mt-0.5 shrink-0 text-[#ef4b2f]" />
-                  <div><strong className="text-sm">Доставка по Саратову</strong><p className="mt-1 text-xs leading-5 text-[#888]">Минимальная сумма зависит от расстояния.</p></div>
+                  <div><strong className="text-sm">Доставка по Саратову</strong><p className="mt-1 text-xs leading-5 text-[#888]">Минимальная сумма зависит от расстояния и подтверждается администратором.</p></div>
+                </div>
+                <div className="rounded-2xl bg-[#fff4f1] p-3 text-xs leading-5 text-[#9c3f2d]">
+                  После 21:40 заказ принимается с предоплатой не менее 50%. Для заказов свыше 2 000 ₽ также предусмотрена предоплата.
                 </div>
               </div>
             </aside>
