@@ -82,15 +82,15 @@ export const menu: { category: string; items: Product[] }[] = [
     ],
   },
   {
-    category: "WOK",
+    category: "Вок",
     items: [
-      { id: "wok-fettuccine-chicken", name: "Фетучини с курицей и грибами", description: "Горячая лапша WOK с курицей и грибами.", price: 300, weight: "порция", category: "WOK", image: img.wok1 },
-      { id: "wok-fettuccine-bacon", name: "Фетучини с беконом", description: "Горячая лапша WOK с беконом.", price: 300, weight: "порция", category: "WOK", image: img.wok2 },
-      { id: "wok-fettuccine-salmon", name: "Фетучини с сёмгой", description: "Горячая лапша WOK с сёмгой.", price: 335, weight: "порция", category: "WOK", image: img.wok1 },
-      { id: "wok-funchoza-chicken", name: "Фунчоза с курицей", description: "Фунчоза WOK с курицей.", price: 300, weight: "порция", category: "WOK", image: img.wok2 },
-      { id: "wok-funchoza-seafood", name: "Фунчоза с морепродуктами", description: "Фунчоза WOK с морепродуктами.", price: 335, weight: "порция", category: "WOK", image: img.wok1 },
-      { id: "wok-soba-chicken", name: "Соба с курицей", description: "Гречневая лапша WOK с курицей.", price: 300, weight: "порция", category: "WOK", image: img.wok2 },
-      { id: "wok-soba-seafood", name: "Соба с морепродуктами", description: "Гречневая лапша WOK с морепродуктами.", price: 335, weight: "порция", category: "WOK", image: img.wok1 },
+      { id: "wok-fettuccine-chicken", name: "Фетучини с курицей и грибами", description: "Горячая лапша вок с курицей и грибами.", price: 300, weight: "порция", category: "Вок", image: img.wok1 },
+      { id: "wok-fettuccine-bacon", name: "Фетучини с беконом", description: "Горячая лапша вок с беконом.", price: 300, weight: "порция", category: "Вок", image: img.wok2 },
+      { id: "wok-fettuccine-salmon", name: "Фетучини с сёмгой", description: "Горячая лапша вок с сёмгой.", price: 335, weight: "порция", category: "Вок", image: img.wok1 },
+      { id: "wok-funchoza-chicken", name: "Фунчоза с курицей", description: "Фунчоза вок с курицей.", price: 300, weight: "порция", category: "Вок", image: img.wok2 },
+      { id: "wok-funchoza-seafood", name: "Фунчоза с морепродуктами", description: "Фунчоза вок с морепродуктами.", price: 335, weight: "порция", category: "Вок", image: img.wok1 },
+      { id: "wok-soba-chicken", name: "Соба с курицей", description: "Гречневая лапша вок с курицей.", price: 300, weight: "порция", category: "Вок", image: img.wok2 },
+      { id: "wok-soba-seafood", name: "Соба с морепродуктами", description: "Гречневая лапша вок с морепродуктами.", price: 335, weight: "порция", category: "Вок", image: img.wok1 },
     ],
   },
 ];
