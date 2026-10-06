@@ -20,6 +20,9 @@ export function storageConfig(): { path: string; encryptionKey: Buffer | null } 
   if (orderMode() === "demo") return { path: resolve(tmpdir(), "primerimperator-demo.sqlite"), encryptionKey: null };
   const path = process.env.ORDER_DATABASE_PATH ?? "";
   const resolved = resolve(path);
+  // This Render-hosted presentation is outside Russia and must stay a fictional demo.
+  // A country flag is an operator assertion; deployment location must be verified separately.
+  if (process.env.RENDER || process.env.ORDER_STORAGE_COUNTRY !== "RU" || process.env.ORDER_LEGAL_READY !== "1") throw new OrderError("Рабочий приём требует согласованной инфраструктуры в РФ и документов оператора.", 503);
   if (!isAbsolute(path) || process.env.ORDER_STORAGE_DURABLE !== "1" || resolved.startsWith(resolve(tmpdir()) + "/") || resolved === resolve(tmpdir()) || !key()) throw new OrderError("Рабочий приём заявок ещё не подключён.", 503);
   adminPassword();
   return { path: resolved, encryptionKey: key() };

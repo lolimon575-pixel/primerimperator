@@ -23,7 +23,7 @@ export default function ProductCard({
           className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.035]"
         />
         {product.badge && (
-          <span className="absolute left-2.5 top-2.5 max-w-[calc(100%_-_20px)] truncate rounded-full bg-[#ef4b2f] px-2.5 py-1 text-[10px] font-bold text-white shadow-sm sm:left-3 sm:top-3">
+          <span className="absolute left-2.5 top-2.5 max-w-[calc(100%_-_20px)] truncate rounded-full bg-[#d83e26] px-2.5 py-1 text-[10px] font-bold text-white shadow-sm sm:left-3 sm:top-3">
             {product.badge}
           </span>
         )}
@@ -47,12 +47,12 @@ export default function ProductCard({
           </strong>
 
           {onAdd && quantity > 0 && onDecrease ? (
-            <div className="mt-2 flex h-9 w-full items-center justify-between rounded-full bg-[#fff0ec] p-1 text-[#ef4b2f] sm:h-10">
+            <div className="mt-2 flex h-12 w-full items-center justify-between rounded-full bg-[#fff0ec] p-1 text-[#d83e26]">
               <button
                 type="button"
                 onClick={onDecrease}
                 aria-label={"Уменьшить количество " + product.name}
-                className="grid h-7 w-8 place-items-center rounded-full transition hover:bg-white active:scale-90 sm:h-8 sm:w-9"
+                className="grid h-10 w-10 place-items-center rounded-full transition hover:bg-white active:scale-90"
               >
                 <Minus size={13} strokeWidth={2.5} />
               </button>
@@ -61,7 +61,7 @@ export default function ProductCard({
                 type="button"
                 onClick={onAdd}
                 aria-label={"Добавить ещё " + product.name}
-                className="grid h-7 w-8 place-items-center rounded-full transition hover:bg-white active:scale-90 sm:h-8 sm:w-9"
+                className="grid h-10 w-10 place-items-center rounded-full transition hover:bg-white active:scale-90"
               >
                 <Plus size={13} strokeWidth={2.5} />
               </button>
@@ -71,7 +71,7 @@ export default function ProductCard({
               type="button"
               onClick={onAdd}
               aria-label={"Добавить " + product.name}
-              className="mt-2 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-full bg-[#ef4b2f] px-3 text-[12px] font-semibold text-white transition hover:bg-[#d83e26] active:scale-[.98] sm:h-10"
+              className="mt-2 inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-full bg-[#d83e26] px-3 text-[13px] font-semibold text-white transition hover:bg-[#be311c] active:scale-[.98]"
             >
               <Plus size={15} strokeWidth={2.5} />
               <span>Добавить</span>

@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { CartProvider } from "@/components/CartProvider";
+import DemoNotice from "@/components/DemoNotice";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Император64 — суши, роллы и пицца в Саратове",
-  description: "Меню, акции и доставка Император64: роллы, сеты, жареные роллы, пицца и вок в Саратове.",
+  title: "Император64 — презентационный концепт",
+  description: "Демонстрация меню, корзины и обработки тестовых заявок. Независимый концепт для презентации; не действующий сайт ресторана.",
+  robots: { index: false, follow: false },
   metadataBase: new URL("https://primerimperator.onrender.com"),
 };
 
@@ -19,6 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ru">
       <body>
+        <DemoNotice />
         <CartProvider>{children}</CartProvider>
       </body>
     </html>

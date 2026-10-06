@@ -46,7 +46,7 @@ export default function MenuPage() {
         <div className="rounded-[26px] bg-white p-5 soft-shadow sm:p-7">
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#ef4b2f]">Император64</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#d83e26]">Император64</p>
               <h1 className="mt-1 text-4xl font-bold tracking-[-0.045em] sm:text-5xl">Меню</h1>
               <p className="mt-2 text-sm text-[#888]">Роллы, сеты, жареные роллы, пицца и вок.</p>
               <p className="mt-1 text-[11px] text-[#aaa]">Фото в этом презентационном макете иллюстративные.</p>

@@ -88,27 +88,27 @@ export default function Home() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="grid h-10 w-10 place-items-center rounded-[13px] bg-[#ef4b2f] text-lg font-black text-white">И</span>
+              <span className="grid h-10 w-10 place-items-center rounded-[13px] bg-[#d83e26] text-lg font-black text-white">И</span>
               <span className="hidden sm:block">
                 <strong className="block text-[15px] tracking-[-0.01em]">Император64</strong>
                 <span className="block text-[11px] text-[#8a8a8a]">суши · роллы · пицца</span>
               </span>
             </Link>
             <a href="#contacts" className="hidden items-center gap-2 rounded-full bg-[#f3f3f1] px-4 py-2 text-xs font-medium text-[#555] md:inline-flex">
-              <MapPin size={15} className="text-[#ef4b2f]" /> Саратов
+              <MapPin size={15} className="text-[#d83e26]" /> Саратов
             </a>
           </div>
 
           <nav className="hidden items-center gap-7 text-[13px] font-medium text-[#555] lg:flex">
-            <a href="#menu" className="transition hover:text-[#ef4b2f]">Меню</a>
-            <a href="#promotions" className="transition hover:text-[#ef4b2f]">Акции</a>
-            <a href="#delivery" className="transition hover:text-[#ef4b2f]">Доставка</a>
-            <a href="#contacts" className="transition hover:text-[#ef4b2f]">Контакты</a>
+            <a href="#menu" className="transition hover:text-[#d83e26]">Меню</a>
+            <a href="#promotions" className="transition hover:text-[#d83e26]">Акции</a>
+            <a href="#delivery" className="transition hover:text-[#d83e26]">Доставка</a>
+            <a href="#contacts" className="transition hover:text-[#d83e26]">Контакты</a>
           </nav>
 
           <div className="flex items-center gap-2">
             <div className="hidden items-center gap-2 text-xs text-[#777] md:flex"><span className="live-dot h-2 w-2 rounded-full bg-[#2eb872]" />10:30—22:30</div>
-            <a href="tel:+79272253863" className="hidden h-10 items-center gap-2 rounded-full bg-[#f3f3f1] px-4 text-xs font-medium md:inline-flex"><Phone size={15} />Позвонить</a>
+            <a href="https://imperator164.ru/" target="_blank" rel="noopener noreferrer" className="hidden h-10 items-center gap-2 rounded-full bg-[#f3f3f1] px-4 text-xs font-medium md:inline-flex">Сайт ресторана ↗</a>
             <HeaderCartButton count={count} total={total} onClick={() => setCartOpen(true)} />
           </div>
         </div>
@@ -116,26 +116,26 @@ export default function Home() {
 
       <section className="mx-auto max-w-7xl px-4 pt-4 sm:px-6 sm:pt-6">
         <div className="grid gap-3 lg:grid-cols-[1.65fr_.75fr]">
-          <div className="relative min-h-[410px] overflow-hidden rounded-[28px] bg-[#ef4b2f] sm:min-h-[470px]">
+          <div className="relative min-h-[410px] overflow-hidden rounded-[28px] bg-[#d83e26] sm:min-h-[470px]">
             <img src={heroImage} alt="Суши и роллы" className="absolute inset-y-0 right-0 h-full w-[62%] object-cover object-center sm:w-[58%]" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#ef4b2f] via-[#ef4b2f]/95 to-transparent sm:via-[#ef4b2f]/75" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#d83e26] via-[#d83e26]/95 to-transparent sm:via-[#d83e26]/75" />
             <div className="relative z-10 flex h-full min-h-[410px] max-w-[70%] flex-col justify-between p-6 text-white sm:min-h-[470px] sm:max-w-[52%] sm:p-9">
               <div className="inline-flex w-fit items-center gap-2 rounded-full bg-white/15 px-3 py-2 text-[11px] font-semibold backdrop-blur"><Sparkles size={14} /> Хит меню</div>
               <div>
                 <h1 className="text-[42px] font-bold leading-[.96] tracking-[-0.055em] sm:text-[64px]">{premium?.name ?? "Сет Премиум"}</h1>
-                <p className="mt-4 max-w-md text-sm leading-6 text-white/85 sm:text-base">{premium?.description ?? "Большой сет для вечера дома или компании."}</p>
-                <div className="mt-2 text-xs font-medium text-white/60">{premium?.weight}</div>
+                <p className="mt-4 max-w-md text-sm leading-6 text-white sm:text-base">{premium?.description ?? "Большой сет для вечера дома или компании."}</p>
+                <div className="mt-2 text-xs font-medium text-white">{premium?.weight}</div>
                 <div className="mt-6 flex flex-wrap items-center gap-4">
                   <strong className="text-3xl tracking-[-0.04em] sm:text-4xl">{(premium?.price ?? 1245).toLocaleString("ru-RU")} ₽</strong>
                   {premium && (
                     quantityOf(premium.id) > 0 ? (
-                      <div className="flex h-12 items-center rounded-full bg-white p-1 text-[#ef4b2f]">
+                      <div className="flex h-12 items-center rounded-full bg-white p-1 text-[#d83e26]">
                         <button type="button" onClick={() => decrease(premium.id)} aria-label="Уменьшить количество" className="grid h-10 w-10 place-items-center rounded-full text-lg font-semibold hover:bg-[#fff4f1]">−</button>
                         <span className="w-8 text-center text-sm font-bold">{quantityOf(premium.id)}</span>
                         <button type="button" onClick={() => add(premium)} aria-label="Добавить ещё" className="grid h-10 w-10 place-items-center rounded-full text-lg font-semibold hover:bg-[#fff4f1]">+</button>
                       </div>
                     ) : (
-                      <button type="button" onClick={() => add(premium)} className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#ef4b2f] transition active:scale-95">
+                      <button type="button" onClick={() => add(premium)} className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#d83e26] transition active:scale-95">
                         Добавить
                       </button>
                     )
@@ -151,16 +151,17 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-r from-[#262626] via-[#262626]/90 to-transparent" />
               <div className="relative z-10 max-w-[58%]">
                 <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold">АКЦИЯ</span>
-                <h2 className="mt-4 text-2xl font-semibold leading-tight">Подарок от 1 300 ₽</h2>
+                <h2 className="mt-4 text-2xl font-semibold leading-[1.1] tracking-[-0.025em]">Подарок<br/><span className="whitespace-nowrap">от 1 300 ₽</span></h2>
                 <p className="mt-2 text-xs leading-5 text-white/60">Актуальные акции и условия.</p>
               </div>
             </button>
 
             <button type="button" onClick={() => chooseCategory("Пицца")} className="relative min-h-[190px] min-w-[82%] overflow-hidden rounded-[26px] bg-[#ffb547] p-5 text-left sm:min-w-[46%] lg:min-w-0">
-              <img src={pizzaImage} alt="" className="absolute bottom-[-14px] right-[-20px] h-[84%] w-[58%] rotate-[-5deg] object-cover" />
-              <div className="relative z-10 max-w-[58%]">
+              <img src={pizzaImage} alt="" className="absolute bottom-[-30px] right-[-28px] h-[185px] w-[185px] rounded-full object-cover shadow-[0_12px_35px_rgba(80,40,0,.18)] sm:h-[205px] sm:w-[205px]" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#ffb547] via-[#ffb547]/90 to-transparent" />
+              <div className="relative z-10 max-w-[52%]">
                 <span className="rounded-full bg-white/55 px-2.5 py-1 text-[10px] font-semibold">ПИЦЦА</span>
-                <h2 className="mt-4 text-2xl font-semibold leading-tight">Много начинки</h2>
+                <h2 className="mt-4 text-2xl font-semibold leading-[1.1] tracking-[-0.025em]">Много<br/>начинки</h2>
                 <p className="mt-2 text-xs leading-5 text-black/55">Открыть раздел пиццы.</p>
               </div>
             </button>
@@ -181,7 +182,7 @@ export default function Home() {
       {activeCategory === "Все" && (
         <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
           <div className="flex items-end justify-between">
-            <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#ef4b2f]">Чаще выбирают</p><h2 className="mt-1 text-3xl font-bold tracking-[-0.04em] sm:text-4xl">Популярное</h2></div>
+            <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#d83e26]">Чаще выбирают</p><h2 className="mt-1 text-3xl font-bold tracking-[-0.04em] sm:text-4xl">Популярное</h2></div>
             <Link href="/menu" className="hidden items-center gap-1 text-sm font-medium text-[#666] sm:inline-flex">Всё меню <ChevronRight size={17} /></Link>
           </div>
           <div className="mt-6 grid auto-rows-fr grid-cols-2 items-stretch gap-3 sm:gap-4 lg:grid-cols-4">
@@ -223,13 +224,13 @@ export default function Home() {
 
       <section id="promotions" className="scroll-mt-28 mx-auto max-w-7xl px-4 pb-10 sm:px-6 sm:pb-14">
         <div className="mb-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#ef4b2f]">Акции</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#d83e26]">Акции</p>
           <h2 className="mt-1 text-3xl font-bold tracking-[-0.04em] sm:text-4xl">Повод заказать сегодня</h2>
         </div>
         <div className="grid gap-3 md:grid-cols-3">
           {promotions.map(({ eyebrow, title, text, icon: Icon }, index) => (
-            <article key={title} className={"rounded-[24px] p-5 sm:p-6 " + (index === 0 ? "bg-[#ef4b2f] text-white" : "bg-white")}>
-              <div className={"grid h-11 w-11 place-items-center rounded-2xl " + (index === 0 ? "bg-white/15 text-white" : "bg-[#fff0ec] text-[#ef4b2f]")}><Icon size={20} /></div>
+            <article key={title} className={"rounded-[24px] p-5 sm:p-6 " + (index === 0 ? "bg-[#d83e26] text-white" : "bg-white")}>
+              <div className={"grid h-11 w-11 place-items-center rounded-2xl " + (index === 0 ? "bg-white/15 text-white" : "bg-[#fff0ec] text-[#d83e26]")}><Icon size={20} /></div>
               <p className={"mt-5 text-[11px] font-semibold uppercase tracking-[0.1em] " + (index === 0 ? "text-white/60" : "text-[#999]")}>{eyebrow}</p>
               <h3 className="mt-1 text-xl font-semibold tracking-[-0.02em]">{title}</h3>
               <p className={"mt-2 text-sm leading-6 " + (index === 0 ? "text-white/75" : "text-[#777]")}>{text}</p>
@@ -262,16 +263,16 @@ export default function Home() {
 
       <section id="contacts" className="scroll-mt-24 mx-auto max-w-7xl px-4 pb-16 sm:px-6 sm:pb-20">
         <div className="flex items-end justify-between">
-          <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#ef4b2f]">Самовывоз</p><h2 className="mt-1 text-3xl font-bold tracking-[-0.04em] sm:text-4xl">Три точки в городе</h2></div>
+          <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#d83e26]">Самовывоз</p><h2 className="mt-1 text-3xl font-bold tracking-[-0.04em] sm:text-4xl">Три точки в городе</h2></div>
         </div>
         <div className="mt-6 grid gap-3 md:grid-cols-3">
           {locations.map((location) => (
             <article key={location.address} className="rounded-[22px] bg-white p-5 soft-shadow">
-              <div className="grid h-10 w-10 place-items-center rounded-2xl bg-[#fff1ed] text-[#ef4b2f]"><MapPin size={19} /></div>
+              <div className="grid h-10 w-10 place-items-center rounded-2xl bg-[#fff1ed] text-[#d83e26]"><MapPin size={19} /></div>
               <h3 className="mt-5 text-lg font-semibold">{location.address}</h3>
               <div className="mt-2 flex flex-col items-start gap-1">
                 {location.phones.map(([phone, href]) => (
-                  <a key={phone} href={href} className="text-sm text-[#777] transition hover:text-[#ef4b2f]">{phone}</a>
+                  <a key={phone} href={href} className="text-sm text-[#777] transition hover:text-[#d83e26]">{phone}</a>
                 ))}
               </div>
               <div className="mt-4 text-xs text-[#aaa]">Ежедневно · 10:30—22:30</div>
@@ -282,7 +283,7 @@ export default function Home() {
 
       <footer className="border-t border-black/[0.06] bg-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-8 text-xs text-[#888] sm:px-6 md:flex-row md:items-center md:justify-between">
-          <div><strong className="text-sm text-[#333]">Император64</strong><p className="mt-1">Концепт нового сайта доставки в Саратове.</p><p className="mt-1">Тестовые заявки не поступают в настоящий ресторан.</p></div>
+          <div><strong className="text-sm text-[#333]">Концепт для Император64</strong><p className="mt-1">Независимая демонстрация. Сотрудничество с рестораном не подтверждено.</p><p className="mt-1">Заявки тестовые; фото иллюстративные.</p></div>
           <div className="flex flex-wrap gap-5"><a href="#menu">Меню</a><a href="#promotions">Акции</a><a href="#delivery">Доставка</a><a href="#contacts">Контакты</a><a href="/admin">Демо-кабинет</a></div>
         </div>
       </footer>

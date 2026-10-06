@@ -127,7 +127,7 @@ test("request parser rejects non-JSON, malformed and oversized payloads", async 
   await assert.rejects(readJSON(request({ huge: "x".repeat(24000) })), fails(413));
 });
 test("origin, signed sessions and live configuration fail closed", () => {
-  const names = ["ORDER_APP_ORIGIN", "ORDER_ADMIN_PASSWORD", "ORDER_MODE", "ORDER_DATABASE_PATH", "ORDER_STORAGE_DURABLE", "ORDER_ENCRYPTION_KEY"] as const;
+  const names = ["ORDER_APP_ORIGIN", "ORDER_ADMIN_PASSWORD", "ORDER_MODE", "ORDER_DATABASE_PATH", "ORDER_STORAGE_DURABLE", "ORDER_ENCRYPTION_KEY", "ORDER_STORAGE_COUNTRY", "ORDER_LEGAL_READY", "RENDER"] as const;
   const before = Object.fromEntries(names.map(name => [name, process.env[name]]));
   try {
     process.env.ORDER_APP_ORIGIN = "https://primerimperator.onrender.com";
@@ -142,6 +142,15 @@ test("origin, signed sessions and live configuration fail closed", () => {
     assert.throws(() => storageConfig(), fails(503));
     process.env.ORDER_DATABASE_PATH = "/var/data/imperator/orders.sqlite"; process.env.ORDER_STORAGE_DURABLE = "0";
     assert.throws(() => storageConfig(), fails(503));
-    process.env.ORDER_STORAGE_DURABLE = "1"; assert.equal(storageConfig().path, "/var/data/imperator/orders.sqlite");
+    process.env.ORDER_STORAGE_DURABLE = "1";
+    delete process.env.RENDER;
+    process.env.ORDER_STORAGE_COUNTRY = "US"; process.env.ORDER_LEGAL_READY = "1";
+    assert.throws(() => storageConfig(), fails(503));
+    process.env.ORDER_STORAGE_COUNTRY = "RU"; process.env.ORDER_LEGAL_READY = "0";
+    assert.throws(() => storageConfig(), fails(503));
+    process.env.ORDER_LEGAL_READY = "1"; process.env.RENDER = "true";
+    assert.throws(() => storageConfig(), fails(503));
+    delete process.env.RENDER;
+    assert.equal(storageConfig().path, "/var/data/imperator/orders.sqlite");
   } finally { for (const name of names) { if (before[name] === undefined) delete process.env[name]; else process.env[name] = before[name]; } }
 });

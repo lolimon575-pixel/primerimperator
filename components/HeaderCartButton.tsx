@@ -21,7 +21,7 @@ export default function HeaderCartButton({
       aria-haspopup="dialog"
       className="group relative inline-flex h-11 items-center rounded-[14px] bg-[#1f1f1f] p-1.5 text-white shadow-[0_6px_18px_rgba(0,0,0,.12)] transition hover:bg-[#2a2a2a] active:scale-[.98] sm:pr-3"
     >
-      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] bg-[#ef4b2f] text-white transition group-hover:scale-[1.03]">
+      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] bg-[#d83e26] text-white transition group-hover:scale-[1.03]">
         <ShoppingBag size={16} strokeWidth={2.25} />
       </span>
 
@@ -33,7 +33,7 @@ export default function HeaderCartButton({
       </span>
 
       {count > 0 && (
-        <span className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-white px-1 text-[9px] font-black text-[#ef4b2f] shadow-sm ring-2 ring-[#1f1f1f] sm:static sm:h-7 sm:min-w-7 sm:bg-[#ef4b2f] sm:px-1.5 sm:text-[10px] sm:text-white sm:ring-0">
+        <span className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-white px-1 text-[9px] font-black text-[#d83e26] shadow-sm ring-2 ring-[#1f1f1f] sm:static sm:h-7 sm:min-w-7 sm:bg-[#d83e26] sm:px-1.5 sm:text-[10px] sm:text-white sm:ring-0">
           {badge}
         </span>
       )}
