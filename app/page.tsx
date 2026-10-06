@@ -282,8 +282,8 @@ export default function Home() {
 
       <footer className="border-t border-black/[0.06] bg-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-8 text-xs text-[#888] sm:px-6 md:flex-row md:items-center md:justify-between">
-          <div><strong className="text-sm text-[#333]">Император64</strong><p className="mt-1">Концепт нового сайта доставки в Саратове.</p></div>
-          <div className="flex flex-wrap gap-5"><a href="#menu">Меню</a><a href="#promotions">Акции</a><a href="#delivery">Доставка</a><a href="#contacts">Контакты</a></div>
+          <div><strong className="text-sm text-[#333]">Император64</strong><p className="mt-1">Концепт нового сайта доставки в Саратове.</p><p className="mt-1">Тестовые заявки не поступают в настоящий ресторан.</p></div>
+          <div className="flex flex-wrap gap-5"><a href="#menu">Меню</a><a href="#promotions">Акции</a><a href="#delivery">Доставка</a><a href="#contacts">Контакты</a><a href="/admin">Демо-кабинет</a></div>
         </div>
       </footer>
 

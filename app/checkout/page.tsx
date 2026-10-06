@@ -36,7 +36,7 @@ export default function CheckoutPage() {
             <section>
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#ef4b2f]">Последний шаг</p>
               <h1 className="mt-1 text-4xl font-bold tracking-[-0.045em] sm:text-5xl">Оформление заказа</h1>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-[#777]">Укажите контакты и способ получения. В этой демо-версии заказ формируется, но не отправляется в ресторан автоматически.</p>
+              <p className="mt-3 max-w-xl text-sm leading-6 text-[#777]">Проверьте блюда и выберите способ получения. В демонстрации сохраняются только тестовые заявки с вымышленными контактами.</p>
               <div className="mt-6"><OrderForm /></div>
             </section>
 
