@@ -11,16 +11,16 @@ export default function CheckoutPage() {
   return (
     <main className="min-h-screen bg-[#f6f6f4] text-[#1f1f1f]">
       <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6">
           <Link href="/menu" className="inline-flex items-center gap-2 text-xs font-semibold text-[#666]"><ArrowLeft size={16} />К меню</Link>
           <strong className="text-sm">Оформление</strong>
           <a href="tel:+79272253863" className="inline-flex items-center gap-2 text-xs font-medium text-[#666]"><Phone size={15} /><span className="hidden sm:inline">Позвонить</span></a>
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <div className="mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-12">
         {!hydrated ? (
-          <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
+          <div className="grid gap-4 sm:gap-6 lg:grid-cols-[1fr_360px]">
             <div className="h-[560px] animate-pulse rounded-[24px] bg-white" />
             <div className="h-[360px] animate-pulse rounded-[24px] bg-white" />
           </div>
@@ -32,15 +32,15 @@ export default function CheckoutPage() {
             <Link href="/menu" className="mt-6 inline-flex h-12 items-center rounded-full bg-[#d83e26] px-6 text-sm font-semibold text-white">Открыть меню</Link>
           </div>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
+          <div className="grid gap-4 sm:gap-6 lg:grid-cols-[1fr_360px]">
             <section>
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#d83e26]">Последний шаг</p>
-              <h1 className="mt-1 text-4xl font-bold tracking-[-0.045em] sm:text-5xl">Оформление заказа</h1>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-[#777]">Проверьте блюда и выберите способ получения. В демонстрации сохраняются только тестовые заявки с вымышленными контактами.</p>
-              <div className="mt-6"><OrderForm /></div>
+              <h1 className="mt-1 text-[28px] font-bold tracking-[-0.045em] sm:text-5xl">Оформление заказа</h1>
+              <p className="mt-2 max-w-xl text-xs leading-5 sm:mt-3 sm:text-sm sm:leading-6 text-[#777]">Проверьте блюда и выберите способ получения. В демонстрации сохраняются только тестовые заявки с вымышленными контактами.</p>
+              <div className="mt-4 sm:mt-6"><OrderForm /></div>
             </section>
 
-            <aside className="h-fit rounded-[24px] bg-white p-5 shadow-sm lg:sticky lg:top-24">
+            <aside className="h-fit rounded-[20px] bg-white p-4 shadow-sm sm:rounded-[24px] sm:p-5 lg:sticky lg:top-24">
               <div className="flex items-center justify-between gap-3">
                 <h2 className="text-lg font-semibold">Ваш заказ</h2>
                 <Link href="/menu" className="text-xs font-medium text-[#d83e26]">Изменить</Link>

@@ -6,15 +6,17 @@ export default function ProductCard({
   onAdd,
   onDecrease,
   quantity = 0,
+  className = "",
 }: {
   product: Product;
   onAdd?: () => void;
   onDecrease?: () => void;
   quantity?: number;
+  className?: string;
 }) {
   return (
-    <article className="group flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-[22px] bg-white soft-shadow transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(20,20,20,.10)]">
-      <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-[#efefec]">
+    <article className={"group flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-2xl bg-white soft-shadow transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(20,20,20,.10)] sm:rounded-[22px] " + className}>
+      <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-[#efefec] sm:aspect-square">
         <img
           src={product.image}
           alt={product.name}
@@ -29,15 +31,15 @@ export default function ProductCard({
         )}
       </div>
 
-      <div className="flex min-h-[176px] flex-1 flex-col p-3.5 sm:min-h-[210px] sm:p-4">
+      <div className="flex min-h-[154px] flex-1 flex-col p-3 sm:min-h-[210px] sm:p-4">
         <div className="min-h-[50px] sm:min-h-[52px]">
-          <h3 className="clamp-2 text-[15px] font-semibold leading-[1.28] tracking-[-0.015em] text-[#1f1f1f] sm:text-[17px]">
+          <h3 className="line-clamp-2 text-[13px] font-semibold leading-[1.35] tracking-[-0.015em] text-[#1f1f1f] sm:text-[17px]">
             {product.name}
           </h3>
           <div className="mt-1.5 h-4 truncate text-[11px] leading-4 text-[#929292] sm:text-xs">{product.weight}</div>
         </div>
 
-        <p className="clamp-2 mt-2 hidden h-10 text-[13px] leading-5 text-[#777] sm:block">
+        <p className="mt-2 hidden h-10 text-[13px] leading-5 text-[#777] sm:line-clamp-2">
           {product.description}
         </p>
 
@@ -47,7 +49,7 @@ export default function ProductCard({
           </strong>
 
           {onAdd && quantity > 0 && onDecrease ? (
-            <div className="mt-2 flex h-12 w-full items-center justify-between rounded-full bg-[#fff0ec] p-1 text-[#d83e26]">
+            <div className="mt-2 flex h-11 w-full items-center justify-between rounded-full bg-[#fff0ec] p-0.5 text-[#d83e26] sm:h-12 sm:p-1">
               <button
                 type="button"
                 onClick={onDecrease}
@@ -71,7 +73,7 @@ export default function ProductCard({
               type="button"
               onClick={onAdd}
               aria-label={"Добавить " + product.name}
-              className="mt-2 inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-full bg-[#d83e26] px-3 text-[13px] font-semibold text-white transition hover:bg-[#be311c] active:scale-[.98]"
+              className="mt-2 inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-full bg-[#d83e26] px-3 text-xs font-semibold text-white transition hover:bg-[#be311c] active:scale-[.98] sm:h-12 sm:text-[13px]"
             >
               <Plus size={15} strokeWidth={2.5} />
               <span>Добавить</span>

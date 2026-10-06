@@ -39,7 +39,7 @@ export default function OrderForm() {
   };
   useEffect(() => { void loadConfig(); return () => submission.current?.abort(); }, []);
 
-  const field = "w-full rounded-2xl border border-black/[0.08] bg-[#f8f8f6] px-4 py-3.5 text-sm text-[#222] outline-none transition placeholder:text-[#aaa] focus:border-[#d83e26] focus:bg-white";
+  const field = "w-full rounded-2xl border border-black/[0.08] bg-[#f8f8f6] px-3.5 py-3 text-base text-[#222] sm:px-4 sm:py-3.5 sm:text-sm outline-none transition placeholder:text-[#aaa] focus:border-[#d83e26] focus:bg-white";
 
   const copyText = async (text: string) => {
     let success = false;
@@ -106,7 +106,7 @@ export default function OrderForm() {
 
   if (ready) {
     return (
-      <div aria-live="polite" className="rounded-[24px] bg-white p-6 shadow-sm sm:p-7">
+      <div aria-live="polite" className="rounded-[20px] bg-white p-4 shadow-sm sm:rounded-[24px] sm:p-7">
         <div className="grid h-14 w-14 place-items-center rounded-full bg-[#eaf8ef] text-[#269b57]"><CheckCircle2 size={25} /></div>
         <p className="mt-5 text-xs font-semibold uppercase tracking-wider text-[#d83e26]">{receipt?.number}</p>
         <h2 className="mt-2 text-2xl font-bold tracking-[-0.03em]">{receipt?.mode === "demo" ? "Тестовая заявка сохранена" : "Заявка сохранена"}</h2>
@@ -137,8 +137,8 @@ export default function OrderForm() {
     (active ? "border-[#d83e26] bg-[#fff3ef] text-[#333]" : "border-black/[0.08] bg-[#f8f8f6] text-[#666]");
 
   return (
-    <form onSubmit={submit} className="rounded-[24px] bg-white p-5 shadow-sm sm:p-6">
-      {mode === "demo" && <div className="mb-5 rounded-2xl bg-[#fff3ec] px-4 py-3 text-xs leading-5 text-[#a6472e]"><strong className="block">Проверка демо-кабинета</strong>Используем вымышленные контакты. Тестовая заявка сохраняется в демонстрации, ресторан её не получает.</div>}
+    <form onSubmit={submit} className="rounded-[20px] bg-white p-4 shadow-sm sm:rounded-[24px] sm:p-6">
+      {mode === "demo" && <div className="mb-4 rounded-xl bg-[#fff3ec] px-3 py-2.5 text-[11px] leading-4 sm:text-xs sm:leading-5 text-[#a6472e]"><strong className="block">Проверка демо-кабинета</strong>Используем вымышленные контакты. Тестовая заявка сохраняется в демонстрации, ресторан её не получает.</div>}
       <h2 className="text-xl font-semibold tracking-[-0.02em]">{mode === "demo" ? "Тестовая заявка" : "Контактные данные"}</h2>
 
       {mode === "live" && <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -233,7 +233,7 @@ export default function OrderForm() {
       </label>}
 
       {error && <div role="alert" className="mt-4 rounded-2xl bg-[#fff1ed] p-4 text-sm leading-6 text-[#a6472e]">{error}{!available && !loading && <button type="button" onClick={() => void loadConfig()} className="mt-2 block font-semibold underline underline-offset-4">Повторить проверку</button>}</div>}
-      <button type="submit" disabled={busy || loading || !available} className="mt-6 inline-flex h-13 w-full items-center justify-center gap-2 rounded-full bg-[#d83e26] text-sm font-semibold text-white transition hover:bg-[#d83e26] active:scale-[.99] disabled:cursor-wait disabled:opacity-50">
+      <button type="submit" disabled={busy || loading || !available} className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#d83e26] text-sm font-semibold text-white transition hover:bg-[#d83e26] active:scale-[.99] disabled:cursor-wait disabled:opacity-50">
         {(busy || loading) && <LoaderCircle size={17} className="animate-spin" />}{busy ? "Сохраняем…" : loading ? "Проверяем приём заявок…" : mode === "demo" ? "Сохранить тестовую заявку" : "Отправить заявку"}
       </button>
       <p className="mt-3 text-center text-xs leading-5 text-[#aaa]">{mode === "demo" ? "Демо-заявки могут очищаться после перезапуска демонстрации." : "Приготовление начинается после подтверждения администратором."}</p>

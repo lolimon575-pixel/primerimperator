@@ -55,10 +55,10 @@ export default function CartDrawer({ items, onClose, onIncrease, onDecrease, onR
         className="absolute right-0 top-0 flex h-[100dvh] w-full max-w-[460px] flex-col bg-[#f7f7f5] shadow-2xl sm:rounded-l-[26px]"
         onMouseDown={(event) => event.stopPropagation()}
       >
-        <div className="flex items-center justify-between border-b border-black/[0.07] bg-white p-5 sm:rounded-tl-[26px] sm:p-6">
+        <div className="flex items-center justify-between border-b border-black/[0.07] bg-white p-4 sm:rounded-tl-[26px] sm:p-6">
           <div>
             <p className="text-xs font-medium text-[#8a8a8a]">Император64 · {count} шт.</p>
-            <h2 className="mt-1 text-2xl font-semibold tracking-[-0.03em]">Корзина</h2>
+            <h2 className="mt-1 text-xl font-semibold sm:text-2xl tracking-[-0.03em]">Корзина</h2>
           </div>
           <div className="flex items-center gap-2">
             {items.length > 0 && (
@@ -84,17 +84,17 @@ export default function CartDrawer({ items, onClose, onIncrease, onDecrease, onR
             <div className="space-y-3">
               {items.map((item) => (
                 <div key={item.id} className="flex gap-3 rounded-[18px] bg-white p-3 shadow-sm">
-                  <img src={item.image} alt="" className="h-20 w-20 shrink-0 rounded-[14px] object-cover" />
+                  <img src={item.image} alt="" className="h-14 w-14 shrink-0 rounded-xl object-cover sm:h-20 sm:w-20 sm:rounded-[14px]" />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
-                        <h4 className="truncate text-sm font-semibold">{item.name}</h4>
+                        <h4 className="line-clamp-2 text-[13px] font-semibold sm:text-sm">{item.name}</h4>
                         <p className="mt-1 text-xs text-[#999]">{item.weight} · {item.price.toLocaleString("ru-RU")} ₽</p>
                       </div>
                       <button type="button" onClick={() => onRemove(item.id)} aria-label={"Удалить " + item.name} className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-[#888] transition hover:bg-[#fff0ec] hover:text-[#d83e26]"><Trash2 size={16} /></button>
                     </div>
-                    <div className="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-                      <div className="flex shrink-0 items-center rounded-full bg-[#f3f3f1] p-1">
+                    <div className="mt-2 flex flex-wrap items-center sm:mt-3 justify-between gap-x-3 gap-y-2">
+                      <div className="flex shrink-0 items-center rounded-full bg-[#f3f3f1] p-0.5 sm:p-1">
                         <button type="button" onClick={() => onDecrease(item.id)} aria-label={"Уменьшить количество " + item.name} className="grid h-10 w-10 place-items-center rounded-full text-[#666] transition hover:bg-white active:scale-90"><Minus size={13} /></button>
                         <span className="w-7 text-center text-sm font-semibold" aria-live="polite">{item.quantity}</span>
                         <button type="button" onClick={() => onIncrease(item.id)} aria-label={"Увеличить количество " + item.name} className="grid h-10 w-10 place-items-center rounded-full text-[#666] transition hover:bg-white active:scale-90"><Plus size={13} /></button>
@@ -111,13 +111,13 @@ export default function CartDrawer({ items, onClose, onIncrease, onDecrease, onR
           )}
         </div>
 
-        <div className="border-t border-black/[0.07] bg-white p-5 pb-[max(20px,env(safe-area-inset-bottom))] sm:rounded-bl-[26px] sm:p-6">
+        <div className="border-t border-black/[0.07] bg-white p-4 pb-[max(16px,env(safe-area-inset-bottom))] sm:rounded-bl-[26px] sm:p-6">
           <div className="flex items-center justify-between">
             <span className="text-sm text-[#777]">Итого</span>
             <strong className="text-2xl tracking-[-0.03em]">{total.toLocaleString("ru-RU")} ₽</strong>
           </div>
-          <p className="mt-2 text-xs leading-5 text-[#777]">Тестовая заявка с вымышленными контактами. Оплата и доставка в демонстрации не выполняются.</p>
-          <Link onClick={onClose} href="/checkout" className={"mt-4 flex h-13 items-center justify-center rounded-full text-sm font-semibold transition " + (items.length ? "bg-[#d83e26] text-white hover:bg-[#d83e26] active:scale-[.99]" : "pointer-events-none bg-[#eee] text-[#aaa]")}>
+          <p className="mt-2 text-[11px] leading-4 text-[#777] sm:text-xs sm:leading-5">Тестовая заявка с вымышленными контактами. Оплата и доставка в демонстрации не выполняются.</p>
+          <Link onClick={onClose} href="/checkout" className={"mt-3 flex h-12 items-center justify-center rounded-full text-sm font-semibold transition " + (items.length ? "bg-[#d83e26] text-white hover:bg-[#d83e26] active:scale-[.99]" : "pointer-events-none bg-[#eee] text-[#aaa]")}>
             Оформить заказ
           </Link>
         </div>
